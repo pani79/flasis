@@ -1,0 +1,8 @@
+
+https://youtu.be/nEfemck6iNk
+
+// Instalaciones        . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+
+npm i @angular-devkit/build-angular (angular 11)
+// npm install bootstrap@next (nop)
+npm i bootstrap jquery @popperjs/core
