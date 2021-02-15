@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "fla-sis": {
+      "hosting": {
+        "flasis": [
+          "fla-sis"
+        ]
+      }
+    }
+  }
+}

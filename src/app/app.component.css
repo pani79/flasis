@@ -30,7 +30,7 @@ header, footer{  position: relative; background-color: yellowgreen; color: white
 
 
 header{ top: 0px; }
-header .logoFlasis{ font-size: 24px; }
+/* header .logoFlasis{ font-size: 24px; } */
 
 main{ background-color: white; color: #333; border-radius: 16px; }
 /* main > .container{  background-color: white; } */

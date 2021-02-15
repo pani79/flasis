@@ -1,8 +1,46 @@
 
 https://youtu.be/nEfemck6iNk
+https://www.typewolf.com/google-fonts
 
 // Instalaciones        . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 
 npm i @angular-devkit/build-angular (angular 11)
 // npm install bootstrap@next (nop)
 npm i bootstrap jquery @popperjs/core
+ng add @angular/fire
+
+
+CSS   = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+box-sizing: border-box;
+height: calc(100% - 20px);
+
+
+// Paginas        . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+
+
+
+ng g c componentes/interface/pagina/header
+ng g c componentes/modulos/alumno --module app --skipTests
+ng g c componentes/paginas/generales/home
+
+
+ng g m componentes/modulos/alumno --module app
+
+ng g s componentes/modulos/alumno
+
+
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+ng g c componentes/paginas/generales/home --route home
+
+ng g c componentes/interface/elementos/boton
+ng g c componentes/interface/elementos/botonera
+ng g c componentes/interface/elementos/cabeceraDePagina
+ng g c componentes/modulos/soporte/soporteABMeventoSoporte
+ng g c componentes/modulos/soporte/soporteABMincidenciaSoporte
+ng g c componentes/modulos/soporte/soporteABMresponsableSoporte
+ng g c componentes/modulos/soporte/soporteABMsoporteTipo
+ng g c componentes/paginas/soporte/soporteAdministracionDeTablas
+ng g c componentes/paginas/soporte/soporteGenerarPedido
+ng g s servicios/soporteServicio
