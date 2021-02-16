@@ -1,27 +1,23 @@
 <h2>{{titulo}}</h2>
 
-<div *ngIf="modo ==='EDITAR' || modo ==='CREAR'">
+<div *ngIf="(modo ==='EDITAR' || modo ==='CREAR')"><!-- -->
     
-    <form class="mt-3 col-md-8 offset-md-2 formulario" [formGroup]="formularioAlumno">
+    <form class="mt-3 col-md-8 offset-md-2 formulario" [formGroup]="formularioInstitucion">
         
         <div class="row">
             
-            <div class="input-group col-12 col-md-6">
-                <span class="input-group-text" id="basic-addon1">Apellido</span>
-                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon1" formControlName="apellido" placeholder="Apellido">
-            </div>
             <div class="input-group col-12 col-md-6">
                 <span class="input-group-text" id="basic-addon2">Nombre</span>
                 <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon2" formControlName="nombre" placeholder="Nombre">
             </div>
 
             <div class="input-group col-6">
-                <span class="input-group-text" id="basic-addon3">Dni</span>
-                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3"  formControlName="dni" placeholder="Dni">
+                <span class="input-group-text" id="basic-addon3">Descripcion</span>
+                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3"  formControlName="descripcion" placeholder="Descripcion">
             </div>
             <div class="input-group col-6">
-                <span class="input-group-text" id="basic-addon4">Email</span>
-                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon4"  formControlName="email" placeholder="Email">
+                <span class="input-group-text" id="basic-addon4">Nivel</span>
+                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon4"  formControlName="nivel" placeholder="Nivel">
             </div>
             <!-- 
                 <div class="form-group col-md-4">
@@ -33,31 +29,22 @@
         <!-- 
             nombre: string;
             apellido: string;
-            dni: number;
-            email: string;
+            descripcion: number;
+            nivel: string;
         -->
         
         <hr>
         <div class="row">
-            <div class="input-group col-6">
+            <!-- <div class="input-group col-6">
                 <span class="input-group-text" id="basic-addon5">Curso</span>
                 <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon5" formControlName="curso" placeholder="Curso">
             </div>
             <div class="input-group col-6">
                 <span class="input-group-text" id="basic-addon6">Colegio/Institucion</span>
                 <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon6" formControlName="institucion" placeholder="Curso">
-            </div>
-        </div>
-        <hr>
-        <div class="row">
-            <!-- <div class="form-group col-md-4">
-                <input type="text" class="form-control" formControlName="comentarios" placeholder="Comentarios">
             </div> -->
-            <div class="input-group">
-                <span class="input-group-text">Comentarios</span>
-                <textarea class="form-control" aria-label="Comentarios" formControlName="comentarios" placeholder="Comentarios"></textarea>
-            </div>
         </div>
+        
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <!-- <button class="btn btn-primary me-md-2" type="button">Button</button> -->
             <button *ngIf="(modo === 'EDITAR')" (click)="modificar()" class="btn bg-dark btn-block text-light">Modificar</button>
@@ -68,42 +55,36 @@
     </form>
 </div>
 <hr>
-<p>{{alumno|json}}</p>
+<p>{{Institucion|json}}</p>
 
 
 <!-- Ver    = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  -->
 
 
-<div *ngIf="modo ==='VER'">
+<div *ngIf="modo === 'VER'">
     
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    {{alumno.nombre}} {{alumno.apellido}}
+                    {{institucion.nombre}}
                 </div>
                 <div class="card-body">
                     
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
-                            DNI: <h5>{{alumno.dni}}</h5>
+                            DNI: <h5>{{institucion.descripcion}}</h5>
                         </li>
                         <li class="list-group-item">
-                            Email: <h5>{{alumno.email}}</h5>
-                        </li>
-                        <li class="list-group-item">
-                            Institucion: <h5>{{alumno.institucion}}</h5>
-                        </li>
-                        <li class="list-group-item">
-                            Curso: <h5>{{alumno.curso}}</h5>
-                        </li>
+                            Nivel: <h5>{{institucion.nivel}}</h5>
+                        </li>                        
                     </ul>
                 </div>
             </div>
         </div>
   </div>
   <hr>
-  <p>{{alumno|json}}</p>
+  <p>{{institucion|json}}</p>
 
 </div>
 
@@ -113,23 +94,23 @@
 
 <div *ngIf="modo ==='LISTAR'">
     
-    <p>alumnos {{(alumnos$|async)?.length}}.</p>
+    <p>Instituciones {{(instituciones$|async)?.length}}.</p>
     <div class="row">
         <div class="col-12">
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button class="btn bg-dark btn-block text-light" (click)="clickCrear()">Nuevo alumno</button>
+                <button class="btn bg-dark btn-block text-light" (click)="clickCrear()">Nuevo Institucion</button>
             </div>
         </div>
     </div>
     <hr>
 
-    <div *ngIf="(alumnos$|async)?.length === 0">
+    <div *ngIf="(instituciones$|async)?.length === 0">
         <div class="card">
-            <p>no hay alumnos.</p>
+            <p>no hay instituciones.</p>
         </div>
     </div>
 
-    <div *ngIf="(alumnos$|async)?.length > 0">
+    <div *ngIf="(instituciones$|async)?.length > 0">
 
           
         <div class="table-responsive">
@@ -138,22 +119,18 @@
             <tr>
                 <th scope="col">Nombre</th>
                 <!-- <th scope="col">Id</th> -->
-                <th scope="col">Dni</th>
-                <th scope="col">Institucion</th>
-                <th scope="col">Curso</th>
-                <th scope="col">Email</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Nivel</th>
                 <!-- <th scope="col">Comentarios</th> -->
                 <th class="d-none d-sm-block" scope="col">Actions</th>
             </tr>
             </thead>
             <tbody>
-            <tr class="table-info" *ngFor="let item of alumnos$ | async">
+            <tr class="table-info" *ngFor="let item of instituciones$ | async">
                 <th scope="row">{{ item.nombre}} {{item.apellido}}</th>
                 <!-- <td>{{item.id}}</td> -->
-                <td>{{item.dni}}</td>
-                <td>{{item.institucion}}</td>
-                <td>{{item.curso}}</td>
-                <td>{{item.email}}</td>
+                <td>{{item.descripcion}}</td>
+                <td>{{item.nivel}}</td>
                 <!-- <td>{{item.comentarios}}</td> -->
                 <td class="bnt-group d-none d-sm-block" role="group">
                     <button type="button" class="btn btn-outline-warning m-1" (click)="clickEdiar(item)">Editar</button>
@@ -183,6 +160,6 @@
         </div>
     </div>
     <hr>
-    <!-- <p>{{formularioAlumno|json}}</p> -->
+    <!-- <p>{{formularioInstitucion|json}}</p> -->
 </div>
 

@@ -1,0 +1,2 @@
+.formulario > *{border: rgba(138, 43, 226, .1) dashed 2px;}
+.formulario > * > *{border: rgba(255, 99, 71, .5) dotted 1px;}

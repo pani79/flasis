@@ -27,8 +27,19 @@ export class AlumnoService {
       ))
     );
   }
+
+  alumnosTraer() {
+    //return this.afs.collection('alumnos').snapshotChanges();  
+    this.alumnos = this.alumnosColleccion.snapshotChanges().pipe(
+      map( actions => actions.map(
+        a => a.payload.doc.data() as Alumno
+      ))
+    );
+  }
   
   alumnoGuardar(alumno: Alumno, alumnoId: string): Promise<void> {
+    console.log('alumnoGuardar => ' + JSON.stringify(alumno));
+    console.log('alumnoId => ' + alumnoId);
     return new Promise( async (resolve, rejecct) => {
       try {
         const id = alumnoId || this.afs.createId();

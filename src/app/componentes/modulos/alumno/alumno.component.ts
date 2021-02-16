@@ -20,6 +20,7 @@ export class AlumnoComponent implements OnInit {
   formularioAlumno: FormGroup;
   alumnos$: any;
   modo= 'LISTAR';
+  titulo = 'Listado de alumnos';
 
   constructor(
     private servicioAlumno: AlumnoService,
@@ -30,57 +31,90 @@ export class AlumnoComponent implements OnInit {
       this.formularioIniciar();
     }
 
-  ngOnInit() {
-    /* 
-    if (typeof this.employee === 'undefined') {
-      this.router.navigate(['new']);
-    } else {
-      this.employeeForm.patchValue(this.employee);
-    } */
-    
-    if (typeof this.alumno === 'undefined') {
-      // this.router.navigate(['new']);
-      this.alumno = { nombre: 'a', apellido: 'B', dni: 0, email: 'dsadasda', curso: null}
-    } else {
-      this.formularioAlumno.patchValue(this.alumno);
-    }
-  }
-
-  cambiarDeModo() {
-    console.log(this.modo);    
-    this.modo = (this.modo === 'EDITAR')? 'LISTAR' : 'EDITAR';
-  }
+  ngOnInit() {  }
 
 
   //  Lista    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   
   listadoIniciar() {
-    //this.alumnos = this.servicioAlumno.alumnos;
+    //this.alumnos$ = this.servicioAlumno.alumnos;
+    //this.alumnos$ = this.servicioAlumno.alumnosTraer();
+    //this.servicioAlumno.alumnosTraer().subscribe(      (infoAlumnos) => {  this.alumnos$ = infoAlumnos;}   );
+    this.servicioAlumno.alumnosTraer();
+    this.modo = 'LISTAR';
+  }
+
+  clickCrear() {
+    console.log('CREAR => ');
+    this.titulo = 'Crear un nuevo alumno';
+    this.formularioIniciar();
+    this.modo = 'CREAR';
+  }
+
+  clickEdiar(alumno: Alumno) {
+    console.log('EDITAR => ' + JSON.stringify(alumno));
+    this.titulo = 'Editar alumno ' + alumno.apellido + ' ' + alumno.nombre;
+    this.alumno = alumno;
+    this.formularioIniciar();
+    this.modo = 'EDITAR';
+  }
+
+  clickVer(alumno: Alumno) {
+    console.log('VER => ' + JSON.stringify(alumno));
+    this.alumno = alumno;
+    this.formularioIniciar();
+    this.modo = 'VER';
+  }
+  
+  clickBorrar(alumnoId: string) {
+    console.log('Borrar => ' + alumnoId);
+    this.servicioAlumno.alumnoEliminar(alumnoId);
   }
 
   //  Crea | Edita    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   
   formularioIniciar() {
-    if (typeof this.alumno === 'undefined') {
-      // this.router.navigate(['new']);
-      this.alumno = { nombre: 'a', apellido: 'B', dni: 0, email: 'dsadasda', curso: null}
-    } else {
-      this.formularioAlumno.patchValue(this.alumno);
-    }
     this.formularioAlumno = this.fb.group({
       nombre: ['', [Validators.required]],
       apellido: ['', [Validators.required]],
       dni: [null, [Validators.required]],
       email: ['', [Validators.required]],
-      curso: ['', [Validators.required]]
+      institucion: ['', [Validators.required]],
+      curso: ['', [Validators.required]],
+      comentarios: ['', [Validators.required]]
     });
+    if (typeof this.alumno === 'undefined') {
+      // this.router.navigate(['new']);
+      this.alumno = { id: null, nombre: null, apellido: null, dni: null, email: null, institucion: null, curso: null}
+    } else {
+      console.log('relleno');
+      this.formularioAlumno.patchValue(this.alumno);
+    }
   }
 
   guardar() {
-    
     console.log('Saved', this.formularioAlumno.value);
     const alumno = this.formularioAlumno.value;
-    const alumnoId = null;
+    const alumnoId = this.alumno.id || null;
+    /* const alumnoId = this.alumno?.id || null; */
+    this.servicioAlumno.alumnoGuardar(alumno, alumnoId);
+     
+    /* 
+    console.log('Saved', this.form.value);
+    if (this.employeeForm.valid) {
+      const employee = this.employeeForm.value;
+      const employeeId = this.employee?.id || null;
+      this.employeesSvc.onSaveEmployee(employee, employeeId);
+      this.employeeForm.reset();
+    }
+ */
+  }
+  modificar() {
+    console.log('modificar', this.formularioAlumno.value);
+    const alumno = this.formularioAlumno.value;
+    const alumnoId = this.alumno.id || null;
+    //console.log('alumnoId', alumnoId);
+    console.log('alumnoId', alumnoId);
     /* const alumnoId = this.alumno?.id || null; */
     this.servicioAlumno.alumnoGuardar(alumno, alumnoId);
      
