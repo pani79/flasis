@@ -4,9 +4,9 @@
 
 
 
-export interface Institucion {
+export interface Curso {
     id?: string;
     nombre: string;
-    descripcion: string;
     nivel: string;
+    institucion: string;
 }

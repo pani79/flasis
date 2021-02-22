@@ -1,78 +1,66 @@
+/* 
+  Pani
+*/
+
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
+//  Modelo
 import { Alumno } from 'src/app/modelos/alumno.interface';
-
+//  servicio
 import { AlumnoService } from '../alumno.service';
-import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 
 @Component({
-  selector: 'app-alumno',
+  selector: 'flaSis-alumno',
   templateUrl: './alumno.component.html',
   styleUrls: ['./alumno.component.css']
 })
 export class AlumnoComponent implements OnInit {
 
+  //alumno: Alumno;
+  //alumno: Observable< Alumno>;
+  alumno: any;
+  formularioAlumno: FormGroup;
+  modo= 'Ver';
+  titulo = 'Ver';
   //alumnos$: this.servicioAlumno.alumnos;
   //alumnos: Alumno[];
-  alumno: Alumno;
-  formularioAlumno: FormGroup;
-  alumnos$: any;
-  modo= 'LISTAR';
-  titulo = 'Listado de alumnos';
+  //alumnos$: any;
 
   constructor(
+    private ruta: ActivatedRoute,
     private servicioAlumno: AlumnoService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private location: Location
     ) { 
-      this.alumnos$ = this.servicioAlumno.alumnos;
-      this.formularioIniciar();
+      //this.alumnos$ = this.servicioAlumno.alumnos;
+      //this.formularioIniciar();
     }
 
-  ngOnInit() {  }
-
-
-  //  Lista    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  ngOnInit() { this.alumnoObtiene(); }
   
-  listadoIniciar() {
-    //this.alumnos$ = this.servicioAlumno.alumnos;
-    //this.alumnos$ = this.servicioAlumno.alumnosTraer();
-    //this.servicioAlumno.alumnosTraer().subscribe(      (infoAlumnos) => {  this.alumnos$ = infoAlumnos;}   );
-    this.servicioAlumno.alumnosTraer();
-    this.modo = 'LISTAR';
+  alumnoObtiene() {
+    console.log('alumnoObtiene');
+    const id = this.ruta.snapshot.paramMap.get('id');
+    console.log(id);
+    this.servicioAlumno.alumnoObtenerPorId(id).subscribe(
+      (alumno) => {
+        this.alumno = alumno.payload.data();
+        console.log('alumno => ' + this.alumno.nombre);
+        console.log('alumno = ' + JSON.stringify(this.alumno));
+        
+      }
+    );
   }
 
-  clickCrear() {
-    console.log('CREAR => ');
-    this.titulo = 'Crear un nuevo alumno';
-    this.formularioIniciar();
-    this.modo = 'CREAR';
-  }
 
-  clickEdiar(alumno: Alumno) {
-    console.log('EDITAR => ' + JSON.stringify(alumno));
-    this.titulo = 'Editar alumno ' + alumno.apellido + ' ' + alumno.nombre;
-    this.alumno = alumno;
-    this.formularioIniciar();
-    this.modo = 'EDITAR';
-  }
-
-  clickVer(alumno: Alumno) {
-    console.log('VER => ' + JSON.stringify(alumno));
-    this.alumno = alumno;
-    this.formularioIniciar();
-    this.modo = 'VER';
-  }
-  
-  clickBorrar(alumnoId: string) {
-    console.log('Borrar => ' + alumnoId);
-    this.servicioAlumno.alumnoEliminar(alumnoId);
-  }
 
   //  Crea | Edita    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  
+
   formularioIniciar() {
     this.formularioAlumno = this.fb.group({
       nombre: ['', [Validators.required]],
@@ -129,5 +117,45 @@ export class AlumnoComponent implements OnInit {
  */
   }
 
-
+  
+  
+  /* 
+    //  Lista    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    
+    listadoIniciar() {
+      //this.alumnos$ = this.servicioAlumno.alumnos;
+      //this.alumnos$ = this.servicioAlumno.alumnosTraer();
+      //this.servicioAlumno.alumnosTraer().subscribe(      (infoAlumnos) => {  this.alumnos$ = infoAlumnos;}   );
+      this.servicioAlumno.alumnosTraer();
+      this.modo = 'LISTAR';
+    }
+  
+    clickCrear() {
+      console.log('CREAR => ');
+      this.titulo = 'Crear un nuevo alumno';
+      this.formularioIniciar();
+      this.modo = 'CREAR';
+    }
+  
+    clickEdiar(alumno: Alumno) {
+      console.log('EDITAR => ' + JSON.stringify(alumno));
+      this.titulo = 'Editar alumno ' + alumno.apellido + ' ' + alumno.nombre;
+      this.alumno = alumno;
+      this.formularioIniciar();
+      this.modo = 'EDITAR';
+    }
+  
+    clickVer(alumno: Alumno) {
+      console.log('VER => ' + JSON.stringify(alumno));
+      this.alumno = alumno;
+      this.formularioIniciar();
+      this.modo = 'VER';
+    }
+    
+    clickBorrar(alumnoId: string) {
+      console.log('Borrar => ' + alumnoId);
+      this.servicioAlumno.alumnoEliminar(alumnoId);
+    }
+  
+   */  
 }

@@ -28,6 +28,11 @@ export class AlumnoService {
     );
   }
 
+  alumnoObtenerPorId(id: string) {
+    return this.alumnosColleccion.doc(id).snapshotChanges();
+    //this.firestore.collection('cats').doc(documentId).snapshotChanges();
+  }
+
   alumnosTraer() {
     //return this.afs.collection('alumnos').snapshotChanges();  
     this.alumnos = this.alumnosColleccion.snapshotChanges().pipe(

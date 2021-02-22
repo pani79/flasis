@@ -15,6 +15,8 @@ import { InstitucionModule } from './componentes/modulos/institucion/institucion
 
 import { AlumnoComponent } from './componentes/modulos/alumno/alumno.component';
 import { InstitucionComponent } from './componentes/modulos/institucion/institucion.component';
+import { CursoComponent } from './componentes/modulos/curso/curso.component';
+import { CursoModule } from './componentes/modulos/curso/curso.module';
 
 
 @NgModule({
@@ -28,7 +30,8 @@ import { InstitucionComponent } from './componentes/modulos/institucion/instituc
     AppRoutingModule,
     AlumnoModule,
     InstitucionModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig)
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    CursoModule
   ],
   providers: [AngularFirestore],
   bootstrap: [AppComponent]

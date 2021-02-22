@@ -22,15 +22,20 @@ height: calc(100% - 20px);
 
 ng g c componentes/interface/pagina/header
 ng g c componentes/modulos/alumno --module app --skipTests
+ng g c componentes/modulos/alumno/alumnoListado --flat --skipTests
+ng g c componentes/modulos/curso --module app --skipTests
 ng g c componentes/modulos/institucion --module app --skipTests
 ng g c componentes/paginas/generales/home
 
 
 ng g m componentes/modulos/alumno --module app
+ng g m componentes/modulos/curso --module app
 ng g m componentes/modulos/institucion --module app
 
 ng g s componentes/modulos/alumno
+ng g s componentes/modulos/curso
 ng g s componentes/modulos/institucion
+ng g s flasis
 
 
 = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =

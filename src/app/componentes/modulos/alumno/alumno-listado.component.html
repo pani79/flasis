@@ -1,0 +1,76 @@
+<p>alumno-listado works!</p>
+
+
+
+<!-- Listado    = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  -->
+
+    
+<p>alumnos {{(alumnos$|async)?.length}}.</p>
+<div class="row">
+    <div class="col-12">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn bg-dark btn-block text-light" (click)="clickCrear()">Nuevo alumno</button>
+        </div>
+    </div>
+</div>
+<hr>
+
+<div *ngIf="(alumnos$|async)?.length === 0">
+    <div class="card">
+        <p>no hay alumnos.</p>
+    </div>
+</div>
+
+<div *ngIf="(alumnos$|async)?.length > 0">
+
+        
+    <div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Nombre</th>
+            <!-- <th scope="col">Id</th> -->
+            <th scope="col">Dni</th>
+            <th scope="col">Institucion</th>
+            <th scope="col">Curso</th>
+            <th scope="col">Email</th>
+            <!-- <th scope="col">Comentarios</th> -->
+            <th class="d-none d-sm-block" scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="table-info" *ngFor="let item of alumnos$ | async">
+            <th scope="row">{{ item.nombre}} {{item.apellido}}</th>
+            <!-- <td>{{item.id}}</td> -->
+            <td>{{item.dni}}</td>
+            <td>{{item.institucion}}</td>
+            <td>{{item.curso}}</td>
+            <td>{{item.email}}</td>
+            <!-- <td>{{item.comentarios}}</td> -->
+            <td class="bnt-group d-none d-sm-block" role="group">
+                <button type="button" class="btn btn-outline-warning m-1" (click)="clickEdiar(item)">Editar</button>
+                <button type="button" class="btn btn-outline-warning m-1" (click)="clickVer(item)">Ver</button>
+                <button type="button" class="btn btn-outline-danger m-1" (click)="clickBorrar(item.id)">Borrar</button> 
+                <!-- 
+                -->
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    
+    </div>
+
+</div>
+
+
+
+<div class="row">
+    <hr>
+    <div class="col-12">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <p>=> {{modo}}</p>
+            <p>=> {{modo !== 'LISTAR'}}</p>
+            <button *ngIf="(modo != 'LISTAR')" class="btn bg-dark btn-block text-light" (click)="listadoIniciar()">Ir a Listado</button>
+        </div>
+    </div>
+</div>
