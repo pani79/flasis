@@ -9,6 +9,15 @@ npm i @angular-devkit/build-angular (angular 11)
 npm i bootstrap jquery @popperjs/core
 ng add @angular/fire
 
+npm install -g angular-cli-ghpages
+
+
+https://github.com/pani79/flasis
+ng build --prod --base-href https://pani79.github.io/flasis/ 
+angular-cli-ghpages -d dist/flasis/ --no-silent
+
+
+https://pani79.github.io/flasis/
 
 CSS   = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
