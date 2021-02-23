@@ -1,6 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { environment } from 'src/environments/environment';
+
+
 import { InstitucionComponent } from './institucion.component';
 
 
@@ -9,8 +14,10 @@ import { InstitucionComponent } from './institucion.component';
   declarations: [InstitucionComponent],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
-  exports: [InstitucionComponent]
+  exports: [InstitucionComponent],
+  providers: [AngularFirestore]
 })
 export class InstitucionModule { }
