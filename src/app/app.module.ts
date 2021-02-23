@@ -5,8 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './componentes/paginas/generales/home/home.component';
 import { HeaderComponent } from './componentes/interface/pagina/header/header.component';
+
 import { AngularFireModule } from '@angular/fire';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 import { environment } from 'src/environments/environment';
 
@@ -31,6 +33,8 @@ import { CursoModule } from './componentes/modulos/curso/curso.module';
     AlumnoModule,
     InstitucionModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireDatabaseModule,
     CursoModule
   ],
   providers: [AngularFirestore],

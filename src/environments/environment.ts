@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   firebaseConfig: {
     apiKey: "AIzaSyAxFsHfEkbfB-tYRmqj8FOJQBoPYNxpxWI",
+    //authDomain: "fla-sis.firebaseapp.com",
     authDomain: "fla-sis.firebaseapp.com",
     projectId: "fla-sis",
     storageBucket: "fla-sis.appspot.com",
