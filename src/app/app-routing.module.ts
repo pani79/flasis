@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './componentes/paginas/generales/home/home.component';
+import { PaginanoencontradaComponent } from './componentes/paginas/generales/paginanoencontrada/paginanoencontrada.component';
 import { AlumnoComponent } from './componentes/modulos/alumno/alumno.component';
 import { AlumnoListadoComponent } from './componentes/modulos/alumno/alumno-listado.component';
 import { CursoComponent } from './componentes/modulos/curso/curso.component';
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'alumnos', component: AlumnoListadoComponent },
   { path: 'cursos', component: CursoComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'instituciones', component: InstitucionComponent }
+  { path: 'instituciones', component: InstitucionComponent },
+  { path: '**', component: PaginanoencontradaComponent }
 ];
 
 @NgModule({

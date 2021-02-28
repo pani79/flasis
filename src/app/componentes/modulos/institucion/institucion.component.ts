@@ -48,7 +48,7 @@ export class InstitucionComponent implements OnInit {
     //this.instituciones$ = this.servicioInstitucion.instituciones;
     //this.instituciones$ = this.servicioInstitucion.institucionesTraer();
     //this.servicioInstitucion.institucionesTraer().subscribe(      (infoAlumnos) => {  this.instituciones$ = infoAlumnos;}   );
-    this.servicioInstitucion.institucionesTraer();
+    this.servicioInstitucion.institucionesObtener();
     this.modo = 'LISTAR';
   }
 

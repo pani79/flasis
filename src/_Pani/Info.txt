@@ -7,6 +7,7 @@ https://www.typewolf.com/google-fonts
 npm i @angular-devkit/build-angular (angular 11)
 // npm install bootstrap@next (nop)
 npm i bootstrap jquery @popperjs/core
+npm i bootstrap-icons
 ng add @angular/fire
 
 npm install -g angular-cli-ghpages
@@ -35,11 +36,13 @@ ng g c componentes/modulos/alumno/alumnoListado --flat --skipTests
 ng g c componentes/modulos/curso --module app --skipTests
 ng g c componentes/modulos/institucion --module app --skipTests
 ng g c componentes/paginas/generales/home
+ng g c componentes/paginas/generales/paginanoencontrada
 
 
 ng g m componentes/modulos/alumno --module app
 ng g m componentes/modulos/curso --module app
 ng g m componentes/modulos/institucion --module app
+ng g m modulos/material
 
 ng g s componentes/modulos/alumno
 ng g s componentes/modulos/curso

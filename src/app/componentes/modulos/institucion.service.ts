@@ -22,19 +22,10 @@ export class InstitucionService {
 
   constructor(private readonly afs: AngularFirestore) { 
     this.institucionesColleccion = afs.collection<Institucion>('instituciones');
-    this.institucionesObtener();
+    this.institucionesTraer();
   }
 
-
-  private institucionesObtener(): void {
-    this.instituciones = this.institucionesColleccion.snapshotChanges().pipe(
-      map( actions => actions.map(
-        a => a.payload.doc.data() as Institucion
-      ))
-    );
-  }
-
-  institucionesTraer() {
+  private institucionesTraer():void {
     //return this.afs.collection('instituciones').snapshotChanges();  
     this.instituciones = this.institucionesColleccion.snapshotChanges().pipe(
       map( actions => actions.map(
@@ -42,6 +33,11 @@ export class InstitucionService {
       ))
     );
   }
+
+   institucionesObtener() {
+    return this.instituciones;
+  }
+
   
   institucionGuardar(Institucion: Institucion, InstitucionId: string): Promise<void> {
     console.log('InstitucionGuardar => ' + JSON.stringify(Institucion));

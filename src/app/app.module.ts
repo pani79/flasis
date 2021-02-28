@@ -19,13 +19,16 @@ import { AlumnoComponent } from './componentes/modulos/alumno/alumno.component';
 import { InstitucionComponent } from './componentes/modulos/institucion/institucion.component';
 import { CursoComponent } from './componentes/modulos/curso/curso.component';
 import { CursoModule } from './componentes/modulos/curso/curso.module';
+import { PaginanoencontradaComponent } from './componentes/paginas/generales/paginanoencontrada/paginanoencontrada.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    PaginanoencontradaComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,8 @@ import { CursoModule } from './componentes/modulos/curso/curso.module';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireDatabaseModule,
-    CursoModule
+    CursoModule,
+    BrowserAnimationsModule
   ],
   providers: [AngularFirestore],
   bootstrap: [AppComponent]

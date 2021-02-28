@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;700&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css");
 
 body{
     /* position: absolute; */
@@ -9,3 +10,42 @@ body{
 }
 
 .container{border: rgba(255, 0, 0, .05) dashed 2px !important;}
+
+
+.cargandoPanel{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    min-height: 300px;
+}
+.cargandoPanel > div{
+    position: relative;
+    display: flex;
+    flex-direction: column;padding: 20px;
+    align-self: center;
+    align-content: center;
+    border-radius: 4px;
+    text-align: center;
+    border: rgba(0, 0, 0, .05) 2px solid;
+}
+.cargandoPanel > div > *{    text-align: center; }
+.cargandoPanel > div > *:last-child{ margin-bottom: 0px; }
+.cargandoPanel > div > i{    font-size: 24px; margin-bottom: 4px; }
+
+
+/* 
+Debug
+
+.cargandoPanel,
+.cargandoPanel > div{
+    border: blue 1px dotted;
+}
+.cargandoPanel > div > *{    border: blue 1px dotted;}
+ */
+
+ 
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

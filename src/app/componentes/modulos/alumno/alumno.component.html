@@ -1,15 +1,28 @@
-<h2>{{titulo}}</h2>
+<h2>{{infoPagina.titulo}}</h2>
+<p>{{infoPagina.info}}</p>
 
 <!-- <p> > {{alumno|json}}</p> -->
 <div *ngIf="alumno">
     sep
+</div>
+<div *ngIf="!alumno">
+    Nop
+</div>
+
+
+<div class="cargandoPanel" *ngIf="cargaInfo.cargando">
+    <div>
+        <i class="bi bi-clock-fill"></i>
+        <h4>{{cargaInfo.titulo}}</h4>
+        <p>{{cargaInfo.detalle}}</p>
+        <p>{{cargaInfo.cargando}}</p>
+    </div>
 
     <!-- <p>{{alumno}}</p> -->
 </div>
-<!-- 
 
-    <div *ngIf="modo ==='EDITAR' || modo ==='CREAR'">
-        
+<div *ngIf="modo ==='EDITAR' || modo ==='CREAR'">
+    
     <form class="mt-3 col-md-8 offset-md-2 formulario" [formGroup]="formularioAlumno">
         
         <div class="row">
@@ -60,6 +73,7 @@
     </form>
 </div>
 <hr>
+<!-- 
 -->
 
 

@@ -11,6 +11,8 @@ import { Alumno } from 'src/app/modelos/alumno.interface';
 //  servicio
 import { AlumnoService } from '../alumno.service';
 import { Observable } from 'rxjs';
+import { Institucion } from 'src/app/modelos/institucion.interface';
+import { InstitucionService } from '../institucion.service';
 
 
 @Component({
@@ -22,17 +24,25 @@ export class AlumnoComponent implements OnInit {
 
   //alumno: Alumno;
   //alumno: Observable< Alumno>;
+  cargaInfo = {
+    cargando: true,
+    titulo: 'Cargando',
+    detalle: 'Cargando metadatos en proceso.'
+  }
   alumno: any;
   formularioAlumno: FormGroup;
-  modo= 'Ver';
-  titulo = 'Ver';
+  modo: string;
+  //titulo = 'Ver';
   //alumnos$: this.servicioAlumno.alumnos;
   //alumnos: Alumno[];
   //alumnos$: any;
+  instituciones: Institucion[];
+  infoPagina =  {titulo: 'Batman', info: 'BW'}
 
   constructor(
     private ruta: ActivatedRoute,
     private servicioAlumno: AlumnoService,
+    private servicioInstitucion: InstitucionService,
     private fb: FormBuilder,
     private router: Router,
     private location: Location
@@ -41,20 +51,39 @@ export class AlumnoComponent implements OnInit {
       //this.formularioIniciar();
     }
 
-  ngOnInit() { this.alumnoObtiene(); }
+  ngOnInit() { 
+    this.cargaInfo.titulo = 'Preparando';
+    /* this.servicioInstitucion.institucionesObtener().subscribe(
+      (info) => {
+        this.instituciones = info;
+        this.cargaInfo.cargando = false;
+      }
+    ); */
+    this.alumnoObtiene(); 
+  }
   
   alumnoObtiene() {
     console.log('alumnoObtiene');
     const id = this.ruta.snapshot.paramMap.get('id');
     console.log(id);
-    this.servicioAlumno.alumnoObtenerPorId(id).subscribe(
-      (alumno) => {
-        this.alumno = alumno.payload.data();
-        console.log('alumno => ' + this.alumno.nombre);
-        console.log('alumno = ' + JSON.stringify(this.alumno));
-        
-      }
-    );
+    if(id !== '') {
+      this.servicioAlumno.alumnoObtenerPorId(id).subscribe(
+        (alumno) => {
+          this.alumno = alumno.payload.data();
+          console.log('alumno => ' + this.alumno.nombre);
+          console.log('alumno = ' + JSON.stringify(this.alumno));
+          this.formularioIniciar();
+          this.modo = 'EDITAR';
+          this.infoPagina =  {titulo: 'Editar aulmno', info: 'Aca champion vas a poder editar al chango.'}
+          this.cargaInfo.cargando = false;
+        }
+      );
+    } else if(id === '') {
+      this.cargaInfo.cargando = false;
+      this.formularioIniciar();
+      this.infoPagina =  {titulo: 'Crear un aulmno nuevo', info: 'Dale, rellena al chango.'}
+      this.modo = 'CREAR';
+    } else {  console.log('UOPPPS <= '); }
   }
 
 
