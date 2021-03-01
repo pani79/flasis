@@ -6,11 +6,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 //  Modelo
 import { Alumno } from 'src/app/modelos/alumno.interface';
 //  servicio
 import { AlumnoService } from '../alumno.service';
-import { Observable } from 'rxjs';
 import { Institucion } from 'src/app/modelos/institucion.interface';
 import { InstitucionService } from '../institucion.service';
 import { FlasisService } from 'src/app/flasis.service';

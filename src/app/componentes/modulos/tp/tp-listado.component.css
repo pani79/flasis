@@ -1,0 +1,17 @@
+.alumnoContenedor .row{
+    padding: 10px 0px;
+    border-radius: 4px;
+    background-color: rgba(153, 205, 50, 0.235);
+}
+
+.alumnoContenedor .row > div{
+    border-radius: 4px;
+    background-color: white;
+}
+
+table{ width: 100%;}
+table td{ height: 20px;}
+table td:last-child{ min-width: 300px;}
+table td{border: 2px dotted tomato;}
+table td > *{border: 1px dotted blueviolet;}
+

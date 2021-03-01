@@ -14,13 +14,12 @@ import { environment } from 'src/environments/environment';
 
 import { AlumnoModule } from './componentes/modulos/alumno/alumno.module';
 import { InstitucionModule } from './componentes/modulos/institucion/institucion.module';
+import { TpModule } from './componentes/modulos/tp/tp.module';
 
-import { AlumnoComponent } from './componentes/modulos/alumno/alumno.component';
-import { InstitucionComponent } from './componentes/modulos/institucion/institucion.component';
-import { CursoComponent } from './componentes/modulos/curso/curso.component';
 import { CursoModule } from './componentes/modulos/curso/curso.module';
 import { PaginanoencontradaComponent } from './componentes/paginas/generales/paginanoencontrada/paginanoencontrada.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TpComponent } from './componentes/modulos/tp/tp.component';
 
 
 @NgModule({
@@ -35,11 +34,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     AlumnoModule,
     InstitucionModule,
+    TpModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireDatabaseModule,
     CursoModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    TpModule
   ],
   providers: [AngularFirestore],
   bootstrap: [AppComponent]

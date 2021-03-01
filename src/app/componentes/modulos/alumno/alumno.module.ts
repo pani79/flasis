@@ -22,9 +22,6 @@ import { AlumnoListadoComponent } from './alumno-listado.component';
     CommonModule,
     ReactiveFormsModule,
     MaterialModule
-    // MatTableModule,
-    // MatSortModule,
-    // MatPaginatorModule
   ],
   exports: [AlumnoComponent]
 })

@@ -1,10 +1,14 @@
+/* 
+  Pani
+*/
+
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { AngularFirestoreCollection, AngularFirestore } from "@angular/fire/firestore";
 import { Alumno } from 'src/app/modelos/alumno.interface';
-//import { async } from '@angular/core/testing';
+
 
 @Injectable({
   providedIn: 'root'

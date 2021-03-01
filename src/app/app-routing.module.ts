@@ -3,10 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './componentes/paginas/generales/home/home.component';
 import { PaginanoencontradaComponent } from './componentes/paginas/generales/paginanoencontrada/paginanoencontrada.component';
+
 import { AlumnoComponent } from './componentes/modulos/alumno/alumno.component';
 import { AlumnoListadoComponent } from './componentes/modulos/alumno/alumno-listado.component';
 import { CursoComponent } from './componentes/modulos/curso/curso.component';
 import { InstitucionComponent } from './componentes/modulos/institucion/institucion.component';
+import { TpComponent } from './componentes/modulos/tp/tp.component';
+import { TpListadoComponent } from './componentes/modulos/tp/tp-listado.component';
 
 
 const routes: Routes = [
@@ -16,6 +19,8 @@ const routes: Routes = [
   { path: 'cursos', component: CursoComponent },
   { path: 'home', component: HomeComponent },
   { path: 'instituciones', component: InstitucionComponent },
+  { path: 'trabajopractico/:id', component: TpComponent },
+  { path: 'trabajospracticos', component: TpListadoComponent },
   { path: '**', component: PaginanoencontradaComponent }
 ];
 
