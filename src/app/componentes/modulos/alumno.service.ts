@@ -20,12 +20,26 @@ export class AlumnoService {
   }
 
 
-  private alumnosObtener(): void {
-    this.alumnos = this.alumnosColleccion.snapshotChanges().pipe(
-      map( actions => actions.map(
-        a => a.payload.doc.data() as Alumno
-      ))
+  alumnosObtener(): Observable<Alumno[]> {
+    return this.alumnosColleccion
+      .snapshotChanges()
+      .pipe(
+        map( actions => 
+          actions.map(
+            a => {
+              const info = a.payload.doc.data() as Alumno;
+              const id =  a.payload.doc.id;
+              return {id, ...info};
+            }
+          )
+        )
+      
     );
+    // this.alumnos = this.alumnosColleccion.snapshotChanges().pipe(
+    //   map( actions => actions.map(
+    //     a => a.payload.doc.data() as Alumno
+    //   ))
+    // );
   }
 
   alumnoObtenerPorId(id: string) {

@@ -2,8 +2,12 @@
   Pani
 */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
+//  Material
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 //  Modelo
 import { Alumno } from 'src/app/modelos/alumno.interface';
 //  servicio
@@ -17,7 +21,7 @@ import { FlasisService } from 'src/app/flasis.service';
   templateUrl: './alumno-listado.component.html',
   styleUrls: ['./alumno-listado.component.css']
 })
-export class AlumnoListadoComponent implements OnInit {
+export class AlumnoListadoComponent implements OnInit, AfterViewInit {
 
   //alumnos$: this.servicioAlumno.alumnos;
   //alumnos: Alumno[] = [];
@@ -25,20 +29,32 @@ export class AlumnoListadoComponent implements OnInit {
   alumnos$: any;
   modo= 'LISTAR';
   titulo = 'Listado de alumnos';
-  // displayedColumns: string[] = ['apellido', 'nombre', 'dni', 'acciones'];
-  // dataSource = alumnos;
+  
+  displayedColumns: string[] = ['apellido', 'nombre', 'dni', 'acciones'];
+  dataSource = new MatTableDataSource();
+
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(
     private servicioFasis:FlasisService,
     private servicioAlumno: AlumnoService,
     private router: Router
     ) { 
-      this.alumnos$ = this.servicioAlumno.alumnos;
+      //this.alumnos$ = this.servicioAlumno.alumnos;
       //this.formularioIniciar();
     }
 
-  ngOnInit() {  }
+  ngOnInit() {
+    this.servicioAlumno.alumnosObtener().subscribe(
+      alumnos => {this.dataSource.data = alumnos}
+    )
+  }
 
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
 
   //  Lista    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   

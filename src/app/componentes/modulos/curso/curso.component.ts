@@ -45,7 +45,7 @@ export class CursoComponent implements OnInit {
     //this.cursos$ = this.servicioCurso.cursos;
     //this.cursos$ = this.servicioCurso.cursosTraer();
     //this.servicioCurso.cursosTraer().subscribe(      (infoAlumnos) => {  this.cursos$ = infoAlumnos;}   );
-    this.servicioCurso.cursosTraer();
+    this.servicioCurso.cursosObtener();
     this.modo = 'LISTAR';
   }
 

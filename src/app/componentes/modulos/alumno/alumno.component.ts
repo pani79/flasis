@@ -13,6 +13,9 @@ import { AlumnoService } from '../alumno.service';
 import { Observable } from 'rxjs';
 import { Institucion } from 'src/app/modelos/institucion.interface';
 import { InstitucionService } from '../institucion.service';
+import { FlasisService } from 'src/app/flasis.service';
+import { CursoService } from '../curso.service';
+import { Curso } from 'src/app/modelos/curso.interface';
 
 
 @Component({
@@ -37,12 +40,15 @@ export class AlumnoComponent implements OnInit {
   //alumnos: Alumno[];
   //alumnos$: any;
   instituciones: Institucion[];
+  cursos: Curso[];
   infoPagina =  {titulo: 'Batman', info: 'BW'}
 
   constructor(
     private ruta: ActivatedRoute,
+    private servicioFasis:FlasisService,
     private servicioAlumno: AlumnoService,
     private servicioInstitucion: InstitucionService,
+    private servicioCurso: CursoService,
     private fb: FormBuilder,
     private router: Router,
     private location: Location
@@ -60,8 +66,24 @@ export class AlumnoComponent implements OnInit {
       }
     ); */
     this.alumnoObtiene(); 
+    this.servicioInstitucion.institucionesObtener().subscribe(
+      infoInstituciones => {
+        this.instituciones = infoInstituciones;
+      }
+    );
+    this.servicioCurso.cursosObtener().subscribe(
+      infoCursos => {
+        this.cursos = infoCursos;
+      }
+    );
   }
   
+  clickIrAlListado() {    this.servicioFasis.navegarA('alumnos'); }
+  
+  formularioClickOpcion (valor, valor2) {
+    console.log('formularioClickOpcion REVEER');
+  }
+
   alumnoObtiene() {
     console.log('alumnoObtiene');
     const id = this.ruta.snapshot.paramMap.get('id');

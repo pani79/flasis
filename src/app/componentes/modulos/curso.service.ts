@@ -29,15 +29,38 @@ export class CursoService {
   }
 
 
-  private cursosObtener(): void {
-    this.cursos = this.cursosColleccion.snapshotChanges().pipe(
-      map( actions => actions.map(
-        a => a.payload.doc.data() as Curso
-      ))
+   cursosObtener(): Observable<Curso[]> {
+    return this.cursosColleccion
+      .snapshotChanges()
+      .pipe(
+        map( actions => 
+          actions.map(
+            a => {
+              const info = a.payload.doc.data() as Curso;
+              const id = a.payload.doc.id;
+              return {id, ...info};
+            }
+          )
+        )
     );
   }
+  /* 
+  return this.institucionesColleccion
+      .snapshotChanges()
+      .pipe(
+        map( actions => 
+          actions.map(
+            a => {
+              const info = a.payload.doc.data() as Institucion;
+              const id =  a.payload.doc.id;
+              return {id, ...info};
+            }
+          )
+        )
+    );
+  */
 
-  cursosTraer() {
+  private cursosTraer() {
     //return this.afs.collection('cursos').snapshotChanges();  
     this.cursos = this.cursosColleccion.snapshotChanges().pipe(
       map( actions => actions.map(

@@ -33,10 +33,23 @@ export class InstitucionService {
       ))
     );
   }
-
-   institucionesObtener() {
-    return this.instituciones;
+  institucionesObtener(): Observable<Institucion[]> {
+    return this.institucionesColleccion
+      .snapshotChanges()
+      .pipe(
+        map( actions => 
+          actions.map(
+            a => {
+              const info = a.payload.doc.data() as Institucion;
+              const id =  a.payload.doc.id;
+              return {id, ...info};
+            }
+          )
+        )
+    );
   }
+
+  /* institucionesObtener() {    return this.instituciones;  } */
 
   
   institucionGuardar(Institucion: Institucion, InstitucionId: string): Promise<void> {
