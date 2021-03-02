@@ -6,7 +6,9 @@
 
 export interface Curso {
     id?: string;
+    institucion: string;
     nombre: string;
     nivel: string;
-    institucion: string;
+    division: string;
+    tipo: string;
 }

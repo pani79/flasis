@@ -2,10 +2,11 @@ export interface Alumno {
     id?: string;
     nombre: string;
     apellido: string;
-    dni: number;
+    sexo: number;
     // sexo: string;
     email: string;
     institucion: string;
     curso: string;
+    division: string;
     comentarios?: string;
 }

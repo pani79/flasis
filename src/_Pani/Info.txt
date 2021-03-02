@@ -34,6 +34,7 @@ ng g c componentes/interface/pagina/header
 ng g c componentes/modulos/alumno --module app --skipTests
 ng g c componentes/modulos/alumno/alumnoListado --flat --skipTests
 ng g c componentes/modulos/curso --module app --skipTests
+ng g c componentes/modulos/curso/cursoListado --flat --skipTests
 ng g c componentes/modulos/institucion --module app --skipTests
 ng g c componentes/modulos/tp --module app --skipTests
 ng g c componentes/modulos/tp/tpListado --flat --skipTests

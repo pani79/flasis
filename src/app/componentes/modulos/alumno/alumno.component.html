@@ -47,12 +47,24 @@
                         <input matInput type="text" formControlName="nombre">
                     </mat-form-field>
                 </div>
+                <!-- 
+                    <div>
+                        <mat-form-field class="example-form-field">
+                            <mat-label>Sexo del alumno</mat-label>
+                            <input matInput type="text" formControlName="sexo">
+                        </mat-form-field>
+                    </div> 
+                -->
                 <div>
-                    <mat-form-field class="example-form-field">
-                        <mat-label>Documento de identidad</mat-label>
-                        <input matInput type="text" formControlName="dni">
-                    </mat-form-field>
-                </div>
+                    <label id="example-radio-group-label">Sexo</label>
+                    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                      formControlName="sexo">
+                      <mat-radio-button class="example-radio-button" *ngFor="let sexo of sexos"
+                        [value]="sexo.id">
+                        {{sexo.nombre}}
+                      </mat-radio-button>
+                    </mat-radio-group>
+                  </div>
                 <div>
                     <mat-form-field class="example-form-field">
                         <mat-label>Email del alumno</mat-label>
@@ -61,8 +73,8 @@
                 </div>
                 <!-- 
                     <div class="input-group col-6">
-                        <span class="input-group-text" id="basic-addon3">Dni</span>
-                        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3"  formControlName="dni" placeholder="Dni">
+                        <span class="input-group-text" id="basic-addon3">Sexo</span>
+                        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3"  formControlName="sexo" placeholder="Sexo">
                     </div>
                     <div class="input-group col-6">
                         <span class="input-group-text" id="basic-addon4">Email</span>
@@ -97,6 +109,17 @@
                         <mat-option *ngFor="let curso of cursos" [value]="curso.id"
                           (click)="formularioClickOpcion('CURSO', curso)">
                           {{curso.nombre}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field class="example-form-field">
+                      <mat-label>Division</mat-label>
+                      <mat-select formControlName="division" placeholder="Division">
+                        <mat-option *ngFor="let division of divisiones" [value]="division.id"
+                          (click)="formularioClickOpcion('DIVISION', division)">
+                          {{division.nombre}}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
@@ -164,7 +187,7 @@
                     
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
-                            DNI: <h5>{{alumno.dni}}</h5>
+                            DNI: <h5>{{alumno.sexo}}</h5>
                         </li>
                         <li class="list-group-item">
                             Email: <h5>{{alumno.email}}</h5>

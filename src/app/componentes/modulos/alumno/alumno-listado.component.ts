@@ -30,7 +30,7 @@ export class AlumnoListadoComponent implements OnInit, AfterViewInit {
   modo= 'LISTAR';
   titulo = 'Listado de alumnos';
   
-  displayedColumns: string[] = ['apellido', 'nombre', 'dni', 'acciones'];
+  displayedColumns: string[] = ['apellido', 'nombre', 'sexo', 'institucion', 'curso', 'division', 'acciones'];
   dataSource = new MatTableDataSource();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;

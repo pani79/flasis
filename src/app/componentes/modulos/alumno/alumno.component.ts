@@ -17,6 +17,8 @@ import { FlasisService } from 'src/app/flasis.service';
 import { CursoService } from '../curso.service';
 import { Curso } from 'src/app/modelos/curso.interface';
 
+import { SEXOS } from 'src/app/informacion/datos';
+
 
 @Component({
   selector: 'flaSis-alumno',
@@ -41,6 +43,7 @@ export class AlumnoComponent implements OnInit {
   //alumnos$: any;
   instituciones: Institucion[];
   cursos: Curso[];
+  sexos = [];
   infoPagina =  {titulo: 'Batman', info: 'BW'}
 
   constructor(
@@ -53,6 +56,7 @@ export class AlumnoComponent implements OnInit {
     private router: Router,
     private location: Location
     ) { 
+      this.sexos = SEXOS;
       //this.alumnos$ = this.servicioAlumno.alumnos;
       //this.formularioIniciar();
     }
@@ -116,15 +120,16 @@ export class AlumnoComponent implements OnInit {
     this.formularioAlumno = this.fb.group({
       nombre: ['', [Validators.required]],
       apellido: ['', [Validators.required]],
-      dni: [null, [Validators.required]],
+      sexo: [null, [Validators.required]],
       email: ['', [Validators.required]],
       institucion: ['', [Validators.required]],
       curso: ['', [Validators.required]],
+      division: ['', [Validators.required]],
       comentarios: ['', [Validators.required]]
     });
     if (typeof this.alumno === 'undefined') {
       // this.router.navigate(['new']);
-      this.alumno = { id: null, nombre: null, apellido: null, dni: null, email: null, institucion: null, curso: null}
+      this.alumno = { id: null, nombre: null, apellido: null, sexo: null, email: null, institucion: null, curso: null, division: null, comentarios: null }
     } else {
       console.log('relleno');
       this.formularioAlumno.patchValue(this.alumno);
