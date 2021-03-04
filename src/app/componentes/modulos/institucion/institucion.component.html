@@ -35,35 +35,56 @@
 
             <div class="col-12 col-md-6 col-lg-4">
                 <div>
-                    <mat-form-field class="example-form-field">
-                        <mat-label>Nombre del institucion</mat-label>
-                        <input matInput type="text" formControlName="nombre">
-                    </mat-form-field>
-                </div>
-                <div>
-                    <label id="example-radio-group-label">Nivel</label>
-                    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
-                        formControlName="nivel">
-                        <mat-radio-button class="example-radio-button" *ngFor="let sexo of niveles"
-                            [value]="sexo.id">
-                            {{sexo.nombre}}
-                        </mat-radio-button>
-                    </mat-radio-group>
+                    <div>
+                        <mat-form-field class="example-form-field">
+                            <mat-label>Nombre del institucion</mat-label>
+                            <input matInput type="text" formControlName="nombre">
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <label id="example-radio-group-label">Nivel</label>
+                        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                            formControlName="nivel">
+                            <mat-radio-button class="example-radio-button" *ngFor="let sexo of niveles"
+                                [value]="sexo.id">
+                                {{sexo.nombre}}
+                            </mat-radio-button>
+                        </mat-radio-group>
+                        <!-- 
+                        <ul>
+                            <li *ngFor="let subtask of niveles">
+                                <mat-checkbox> 
+                                    {{subtask.nombre}}
+                                </mat-checkbox>
+                            </li>
+                        </ul>
+                    -->
+                    </div>
                 </div>
             </div>
 
             <div class="col-12 col-md-6 col-lg-4">
                 <div>
-                    <mat-form-field class="example-form-field">
-                        <mat-label>Descripcion de la institucion</mat-label>
-                        <textarea matInput formControlName="descripcion" placeholder="descripcion..."></textarea>
-                  </mat-form-field>
-                </div>
-                
+                    <div>
+                        <mat-form-field class="example-form-field">
+                            <mat-label>Descripcion de la institucion</mat-label>
+                            <textarea matInput formControlName="descripcion" placeholder="descripcion..."></textarea>
+                      </mat-form-field>
+                    </div>
+                </div>                
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-4">
+                <div>
+                    <h4>Cursos de la institucion</h4>
+                    <div>
+                        <p>cursos > {{cursos|json}}</p>
+                    </div>
+                </div>                
             </div>
             
         </div>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <div class="d-grid gap-2 d-md-flex mt-1 justify-content-md-end">
             <button *ngIf="(modo === 'EDITAR')" (click)="modificar()" class="btn bg-dark btn-block text-light">Modificar</button>
             <button *ngIf="(modo === 'CREAR')" (click)="guardar()" class="btn bg-dark btn-block text-light">Guardar</button>
         </div>
@@ -73,8 +94,8 @@
     </form>
 </div>
 
-<div><!--  *ngIf="modo ==='EDITAR' || modo ==='CREAR'" -->
-    <app-curso></app-curso>
+<div *ngIf="modo ==='EDITAR'"><!--  -->
+    <app-curso [inputInfo]="infoHijo"></app-curso>
 </div>
 
 

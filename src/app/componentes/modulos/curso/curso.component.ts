@@ -17,6 +17,7 @@ import { CursoService } from '../curso.service';
 import { InstitucionService } from '../institucion.service';
 //  Datos
 import { CURSO_TIPOS } from 'src/app/informacion/datos';
+import { JsonpClientBackend } from '@angular/common/http';
 
 
 
@@ -41,7 +42,7 @@ export class CursoComponent implements OnInit {
   }
   infoPagina =  {titulo: 'Batman', info: 'BW'}
 
-  @Input() hijo: boolean;
+  @Input() inputInfo: {};
 
 
   constructor(
@@ -57,25 +58,56 @@ export class CursoComponent implements OnInit {
     }
 
   ngOnInit() {
-    console.log('hijo > ' + this.hijo);
-    
+    console.log('input > ' + JSON.stringify(this.inputInfo));
+    console.log(this.inputInfo);
+    /* 
+      cargaInfo = {
+        cargando: true,
+        titulo: 'Cargando',
+        detalle: 'Cargando metadatos en proceso.'
+      }
+    */
     this.cargaInfo.titulo = 'Preparando'; 
-    if(this.hijo) this.cursoObtiene(); 
+    if(this.inputInfo === undefined) {
+      console.log('e UNDEFINED'); 
+      this.infoObtieneInstituciones();
+      //this.cargaInfo.cargando = false;
+      this.formularioIniciar();
+      this.infoPagina =  {titulo: 'Crear un curso nuevo', info: 'Dale, rellena al chango.'}
+      this.modo = 'CREAR';
+    }else {
+      const id = this.ruta.snapshot.paramMap.get('id');
+      console.log(id);
+      if(id !== '') {
+        this.infoObtieneInstitucion(id)
+      } else {  console.log('UOPPPS <= '); }
+    }   
+    if(this.inputInfo) this.cursoObtiene(); 
+  }
+  
+  infoObtieneInstituciones() {
     this.servicioInstitucion.institucionesObtener().subscribe(
       infoInstituciones => {
         this.instituciones = infoInstituciones;
+        this.cargaInfo.cargando = false; 
       }
     );
   }
 
-
-  
-  clickIrAlListado() {    this.servicioFasis.navegarA('cursos'); }
-  
-  formularioClickOpcion (valor, valor2) {
-    console.log('formularioClickOpcion REVEER');
+  infoObtieneInstitucion(id: string) {
+    this.servicioCurso.cursoObtenerPorId(id).subscribe(
+      (curso) => {
+        this.curso = curso.payload.data();
+        console.log('curso => ' + this.curso.nombre);
+        console.log('curso = ' + JSON.stringify(this.curso));
+        this.formularioIniciar();
+        this.modo = 'EDITAR';
+        this.infoPagina =  {titulo: 'Editar curso', info: 'Aca champion vas a poder editar al chango.'}
+        this.cargaInfo.cargando = false;
+      }
+    );
   }
-  
+
   cursoObtiene() {
     console.log('cursoObtiene');
     const id = this.ruta.snapshot.paramMap.get('id');
@@ -99,6 +131,14 @@ export class CursoComponent implements OnInit {
       this.modo = 'CREAR';
     } else {  console.log('UOPPPS <= '); }
   }
+
+  
+  clickIrAlListado() {    this.servicioFasis.navegarA('cursos'); }
+  
+  formularioClickOpcion (valor, valor2) {
+    console.log('formularioClickOpcion REVEER');
+  }
+  
 
   //  Crea | Edita    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   

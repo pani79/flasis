@@ -30,8 +30,8 @@ export class InstitucionComponent implements OnInit {
   formularioInstitucion: FormGroup;
   modo: string;
   instituciones: Institucion[];
+  cursos: Curso[];
   niveles:{}[];
-  //cursos: Curso[];
   //sexos = [];
   cargaInfo = {
     cargando: true,
@@ -39,6 +39,7 @@ export class InstitucionComponent implements OnInit {
     detalle: 'Cargando metadatos en proceso.'
   }
   infoPagina =  {titulo: 'Batman', info: 'BW'}
+  infoHijo = { muestra: true }
 
   constructor(
     private ruta: ActivatedRoute,
@@ -118,6 +119,8 @@ export class InstitucionComponent implements OnInit {
     this.formularioInstitucion.controls['nombre'].disable();
     this.formularioInstitucion.controls['descripcion'].disable();
     this.formularioInstitucion.controls['nivel'].disable();
+    this.infoHijo['institucion'] = institucion;
+    this.modo ='EDITAR';
   }
   
   modificar() {

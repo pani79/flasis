@@ -1,13 +1,24 @@
 .formulario > .row > div{
-    border: 2px solid rgba(0, 0, 0, .1);
-    border-radius: 2px;
+    display: flex;
+    align-items: stretch;
 }
-.formulario > .row > div > div{ padding: 10px; }
-.formulario > .row > div > div > *{ width: 100%; }
+.formulario > .row > div > div{ 
+    width: 100%;
+    padding: 10px; 
+    border: 2px solid rgba(0, 0, 0, .05);
+    border-radius: 4px;
+}
+.formulario > .row > div > div >  div > *{ width: 100%; }
+
+.example-radio-group{ display: flex; flex-direction: column; }
 
 
+
+/* 
+.example-radio-group{ border: 2px solid rgba(0, 0, 0, .8); }
 .formulario > .row > div > div > *{ border: 2px solid rgba(0, 0, 0, .8); }
 .formulario > .row > div > div,
 .formulario > .row{
     border: 2px dotted rgba(255, 255, 0, .5);
 }
+ */
