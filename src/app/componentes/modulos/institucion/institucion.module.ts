@@ -1,26 +1,28 @@
+/* 
+  Pani
+*/
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { environment } from 'src/environments/environment';
+
+import { ReactiveFormsModule } from "@angular/forms";
+import { MaterialModule } from "src/app/modulos/material/material.module";
 
 
 import { InstitucionComponent } from './institucion.component';
+import { InstitucionListadoComponent } from './institucion-listado.component';
+import { CursoModule } from 'src/app/componentes/modulos/curso/curso.module';
 
 
 
 @NgModule({
-  declarations: [InstitucionComponent],
+  declarations: [InstitucionComponent, InstitucionListadoComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule,
-    AngularFireDatabaseModule
+    MaterialModule,
+    CursoModule
   ],
-  exports: [InstitucionComponent],
-  providers: [AngularFirestore]
+  exports: [InstitucionComponent]
 })
 export class InstitucionModule { }

@@ -9,6 +9,7 @@ import { AlumnoListadoComponent } from './componentes/modulos/alumno/alumno-list
 import { CursoComponent } from './componentes/modulos/curso/curso.component';
 import { CursoListadoComponent } from './componentes/modulos/curso/curso-listado.component';
 import { InstitucionComponent } from './componentes/modulos/institucion/institucion.component';
+import { InstitucionListadoComponent } from './componentes/modulos/institucion/institucion-listado.component';
 import { TpComponent } from './componentes/modulos/tp/tp.component';
 import { TpListadoComponent } from './componentes/modulos/tp/tp-listado.component';
 
@@ -20,7 +21,8 @@ const routes: Routes = [
   { path: 'curso/:id', component: CursoComponent },
   { path: 'cursos', component: CursoListadoComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'instituciones', component: InstitucionComponent },
+  { path: 'institucion/:id', component: InstitucionComponent },
+  { path: 'instituciones', component: InstitucionListadoComponent },
   { path: 'trabajopractico/:id', component: TpComponent },
   { path: 'trabajospracticos', component: TpListadoComponent },
   { path: '**', component: PaginanoencontradaComponent }

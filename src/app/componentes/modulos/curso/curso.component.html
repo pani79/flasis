@@ -1,165 +1,100 @@
-<h2>{{titulo}}</h2>
+<h2>{{infoPagina.titulo}}</h2>
+<p>{{infoPagina.info}}</p>
+<p>hijo > {{hijo}}</p>
 
-<div *ngIf="(modo ==='EDITAR' || modo ==='CREAR')"><!-- -->
-    
-    <form class="mt-3 col-md-8 offset-md-2 formulario" [formGroup]="formularioCurso">
-        
-        <div class="row">
-            
-            <div class="input-group col-12 col-md-6">
-                <span class="input-group-text" id="basic-addon2">Nombre</span>
-                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon2" formControlName="nombre" placeholder="Nombre">
-            </div>
 
-            <div class="input-group col-6">
-                <span class="input-group-text" id="basic-addon4">Nivel</span>
-                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon4"  formControlName="nivel" placeholder="Nivel">
-            </div>
-            <div class="input-group col-6">
-                <span class="input-group-text" id="basic-addon3">Institucion</span>
-                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3"  formControlName="institucion" placeholder="Institucion">
-            </div>
-            <!-- 
-                <div class="form-group col-md-4">
-                </div>
-                <div class="form-group col-md-4">
-                </div>
-             -->
+<div *ngIf="curso">
+    sep
+</div>
+<div *ngIf="!curso">
+    Nop
+</div>
+
+
+<div class="cargandoPanel" *ngIf="cargaInfo.cargando">
+    <div>
+        <i class="bi bi-clock-fill"></i>
+        <h4>{{cargaInfo.titulo}}</h4>
+        <p>{{cargaInfo.detalle}}</p>
+        <p>{{cargaInfo.cargando}}</p>
+    </div>
+
+    <!-- <p>{{curso}}</p> -->
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn bg-dark btn-block text-light" (click)="clickIrAlListado()">Ir a listado</button>
         </div>
-        <!-- 
-            nombre: string;
-            apellido: string;
-            institucion: number;
-            nivel: string;
-        -->
+    </div>
+</div>
+
+
+
+
+
+<div *ngIf="modo ==='EDITAR' || modo ==='CREAR'">
+    <hr>
+    <form class="mt-3 col-md-8 offset-md-2 formulario" [formGroup]="formularioCurso">
+        <div class="row">
+
+            <div class="col-12 col-md-6">
+                <div>
+                    <mat-form-field class="example-form-field">
+                      <mat-label>Organismo / institución</mat-label>
+                      <mat-select formControlName="institucion" placeholder="Institución">
+                        <mat-option *ngFor="let establecimiento of instituciones" [value]="establecimiento.id"
+                          (click)="formularioClickOpcion('ESTABLECIMIENTO', establecimiento)">
+                          {{establecimiento.nombre}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field class="example-form-field">
+                      <mat-label>Tipo de curso</mat-label>
+                      <mat-select formControlName="tipo_curso" placeholder="Tipo">
+                        <mat-option *ngFor="let tipoCurso of tipoCursos" [value]="tipoCurso.id">
+                          {{tipoCurso.nombre}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                </div>
+
+            </div>
+            <div class="col-12 col-md-6">
+                <div>
+                    <mat-form-field class="example-form-field">
+                        <mat-label>Nombre del curso</mat-label>
+                        <input matInput type="text" formControlName="nombre">
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field class="example-form-field">
+                        <mat-label>Nivel</mat-label>
+                        <input matInput type="text" formControlName="nivel">
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field class="example-form-field">
+                        <mat-label>Division del curso</mat-label>
+                        <input matInput type="text" formControlName="division">
+                    </mat-form-field>
+                </div>
+            </div>
+            
+        </div>
         
         <hr>
         <div class="row">
-            <!-- <div class="input-group col-6">
-                <span class="input-group-text" id="basic-addon5">Curso</span>
-                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon5" formControlName="curso" placeholder="Curso">
-            </div>
-            <div class="input-group col-6">
-                <span class="input-group-text" id="basic-addon6">Colegio/Institucion</span>
-                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon6" formControlName="institucion" placeholder="Curso">
-            </div> -->
         </div>
-        
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <!-- <button class="btn btn-primary me-md-2" type="button">Button</button> -->
             <button *ngIf="(modo === 'EDITAR')" (click)="modificar()" class="btn bg-dark btn-block text-light">Modificar</button>
             <button *ngIf="(modo === 'CREAR')" (click)="guardar()" class="btn bg-dark btn-block text-light">Guardar</button>
-          </div>
-    
-    
+        </div>
+        
+        
     </form>
-</div>
-<hr>
-<p>{{curso|json}}</p>
-
-
-<!-- Ver    = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  -->
-
-
-<div *ngIf="modo === 'VER'">
-    
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    {{curso.nombre}}
-                </div>
-                <div class="card-body">
-                    
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            DNI: <h5>{{curso.institucion}}</h5>
-                        </li>
-                        <li class="list-group-item">
-                            Nivel: <h5>{{curso.nivel}}</h5>
-                        </li>                        
-                    </ul>
-                </div>
-            </div>
-        </div>
-  </div>
-  <hr>
-  <p>{{curso|json}}</p>
-
-</div>
-
-
-
-<!-- Listado    = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  -->
-
-<div *ngIf="modo ==='LISTAR'">
-    
-    <p>Cursos {{(cursos$|async)?.length}}.</p>
-    <div class="row">
-        <div class="col-12">
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button class="btn bg-dark btn-block text-light" (click)="clickCrear()">Nuevo curso</button>
-            </div>
-        </div>
-    </div>
-    <hr>
-
-    <div *ngIf="(cursos$|async)?.length === 0">
-        <div class="card">
-            <p>no hay cursos.</p>
-        </div>
-    </div>
-
-    <div *ngIf="(cursos$|async)?.length > 0">
-
-          
-        <div class="table-responsive">
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th scope="col">Nombre</th>
-                <!-- <th scope="col">Id</th> -->
-                <th scope="col">Institucion</th>
-                <th scope="col">Nivel</th>
-                <!-- <th scope="col">Comentarios</th> -->
-                <th class="d-none d-sm-block" scope="col">Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr class="table-info" *ngFor="let item of cursos$ | async">
-                <th scope="row">{{ item.nombre}} {{item.apellido}}</th>
-                <!-- <td>{{item.id}}</td> -->
-                <td>{{item.institucion}}</td>
-                <td>{{item.nivel}}</td>
-                <!-- <td>{{item.comentarios}}</td> -->
-                <td class="bnt-group d-none d-sm-block" role="group">
-                    <button type="button" class="btn btn-outline-warning m-1" (click)="clickEdiar(item)">Editar</button>
-                    <button type="button" class="btn btn-outline-warning m-1" (click)="clickVer(item)">Ver</button>
-                    <button type="button" class="btn btn-outline-danger m-1" (click)="clickBorrar(item.id)">Borrar</button> 
-                    <!-- 
-                    -->
-                </td>
-            </tr>
-            </tbody>
-        </table>
-      
-      </div>
-    
-    </div>
-</div>
-
-
-
-<div class="row">
-    <hr>
-    <div class="col-12">
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <p>=> {{modo}}</p>
-            <p>=> {{modo !== 'LISTAR'}}</p>
-            <button *ngIf="(modo != 'LISTAR')" class="btn bg-dark btn-block text-light" (click)="listadoIniciar()">Ir a Listado</button>
-        </div>
-    </div>
-    <hr>
-    <!-- <p>{{formularioInstitucion|json}}</p> -->
 </div>
 

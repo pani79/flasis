@@ -56,14 +56,6 @@ export class CursoListadoComponent implements OnInit, AfterViewInit {
 
   //  Lista    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   
-  listadoIniciar() {
-    //this.cursos$ = this.servicioCurso.cursos;
-    //this.cursos$ = this.servicioCurso.cursosTraer();
-    //this.servicioCurso.cursosTraer().subscribe(      (infoCursos) => {  this.cursos$ = infoCursos;}   );
-    this.servicioCurso.cursosTraer();
-    this.modo = 'LISTAR';
-  }
-
   clickBorrar(cursoId: string) {    this.servicioCurso.cursoEliminar(cursoId);  }
   clickCrear() {    this.servicioFasis.navegarA('curso/'); }
   clickEdiar(curso: Curso) {    this.servicioFasis.navegarA('curso/'+ curso.id);  }

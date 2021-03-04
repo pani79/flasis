@@ -19,7 +19,8 @@ import { TpModule } from './componentes/modulos/tp/tp.module';
 import { CursoModule } from './componentes/modulos/curso/curso.module';
 import { PaginanoencontradaComponent } from './componentes/paginas/generales/paginanoencontrada/paginanoencontrada.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TpComponent } from './componentes/modulos/tp/tp.component';
+//import { TpComponent } from './componentes/modulos/tp/tp.component';
+//import { CursoComponent } from './componentes/modulos/curso/curso.component';
 
 
 @NgModule({

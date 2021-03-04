@@ -9,14 +9,14 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 //  Modelo
 import { Alumno } from 'src/app/modelos/alumno.interface';
-//  servicio
-import { AlumnoService } from '../alumno.service';
 import { Institucion } from 'src/app/modelos/institucion.interface';
-import { InstitucionService } from '../institucion.service';
-import { FlasisService } from 'src/app/flasis.service';
-import { CursoService } from '../curso.service';
 import { Curso } from 'src/app/modelos/curso.interface';
-
+//  Servicios
+import { FlasisService } from 'src/app/flasis.service';
+import { AlumnoService } from '../alumno.service';
+import { InstitucionService } from '../institucion.service';
+import { CursoService } from '../curso.service';
+//  Datos
 import { SEXOS } from 'src/app/informacion/datos';
 
 
@@ -29,21 +29,17 @@ export class AlumnoComponent implements OnInit {
 
   //alumno: Alumno;
   //alumno: Observable< Alumno>;
+  alumno: any;
+  formularioAlumno: FormGroup;
+  modo: string;
+  instituciones: Institucion[];
+  cursos: Curso[];
+  sexos = [];
   cargaInfo = {
     cargando: true,
     titulo: 'Cargando',
     detalle: 'Cargando metadatos en proceso.'
   }
-  alumno: any;
-  formularioAlumno: FormGroup;
-  modo: string;
-  //titulo = 'Ver';
-  //alumnos$: this.servicioAlumno.alumnos;
-  //alumnos: Alumno[];
-  //alumnos$: any;
-  instituciones: Institucion[];
-  cursos: Curso[];
-  sexos = [];
   infoPagina =  {titulo: 'Batman', info: 'BW'}
 
   constructor(
@@ -73,11 +69,11 @@ export class AlumnoComponent implements OnInit {
     this.servicioInstitucion.institucionesObtener().subscribe(
       infoInstituciones => {
         this.instituciones = infoInstituciones;
-      }
-    );
-    this.servicioCurso.cursosObtener().subscribe(
-      infoCursos => {
-        this.cursos = infoCursos;
+        this.servicioCurso.cursosObtener().subscribe(
+          infoCursos => {
+            this.cursos = infoCursos;
+          }
+        );
       }
     );
   }
@@ -175,43 +171,4 @@ export class AlumnoComponent implements OnInit {
 
   
   
-  /* 
-    //  Lista    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-    
-    listadoIniciar() {
-      //this.alumnos$ = this.servicioAlumno.alumnos;
-      //this.alumnos$ = this.servicioAlumno.alumnosTraer();
-      //this.servicioAlumno.alumnosTraer().subscribe(      (infoAlumnos) => {  this.alumnos$ = infoAlumnos;}   );
-      this.servicioAlumno.alumnosTraer();
-      this.modo = 'LISTAR';
-    }
-  
-    clickCrear() {
-      console.log('CREAR => ');
-      this.titulo = 'Crear un nuevo alumno';
-      this.formularioIniciar();
-      this.modo = 'CREAR';
-    }
-  
-    clickEdiar(alumno: Alumno) {
-      console.log('EDITAR => ' + JSON.stringify(alumno));
-      this.titulo = 'Editar alumno ' + alumno.apellido + ' ' + alumno.nombre;
-      this.alumno = alumno;
-      this.formularioIniciar();
-      this.modo = 'EDITAR';
-    }
-  
-    clickVer(alumno: Alumno) {
-      console.log('VER => ' + JSON.stringify(alumno));
-      this.alumno = alumno;
-      this.formularioIniciar();
-      this.modo = 'VER';
-    }
-    
-    clickBorrar(alumnoId: string) {
-      console.log('Borrar => ' + alumnoId);
-      this.servicioAlumno.alumnoEliminar(alumnoId);
-    }
-  
-   */  
 }

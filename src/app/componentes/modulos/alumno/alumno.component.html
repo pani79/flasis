@@ -1,7 +1,6 @@
 <h2>{{infoPagina.titulo}}</h2>
 <p>{{infoPagina.info}}</p>
 
-<!-- <p> > {{alumno|json}}</p> -->
 <div *ngIf="alumno">
     sep
 </div>
@@ -47,14 +46,6 @@
                         <input matInput type="text" formControlName="nombre">
                     </mat-form-field>
                 </div>
-                <!-- 
-                    <div>
-                        <mat-form-field class="example-form-field">
-                            <mat-label>Sexo del alumno</mat-label>
-                            <input matInput type="text" formControlName="sexo">
-                        </mat-form-field>
-                    </div> 
-                -->
                 <div>
                     <label id="example-radio-group-label">Sexo</label>
                     <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
@@ -70,25 +61,7 @@
                         <mat-label>Email del alumno</mat-label>
                         <input matInput type="text" formControlName="email">
                     </mat-form-field>
-                </div>
-                <!-- 
-                    <div class="input-group col-6">
-                        <span class="input-group-text" id="basic-addon3">Sexo</span>
-                        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3"  formControlName="sexo" placeholder="Sexo">
-                    </div>
-                    <div class="input-group col-6">
-                        <span class="input-group-text" id="basic-addon4">Email</span>
-                        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon4"  formControlName="email" placeholder="Email">
-                    </div>
-                    <div class="input-group col-12 col-md-6">
-                        <span class="input-group-text" id="basic-addon1">Apellido</span>
-                        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon1" formControlName="apellido" placeholder="Apellido">
-                    </div>
-                    <div class="input-group col-12 col-md-6">
-                        <span class="input-group-text" id="basic-addon2">Nombre</span>
-                        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon2" formControlName="nombre" placeholder="Nombre">
-                    </div> 
-                -->    
+                </div> 
             </div>
             <div class="col-12 col-md-6 col-lg-4">
                 <div>
@@ -139,24 +112,6 @@
         
         <hr>
         <div class="row">
-            <!-- 
-            <div class="input-group col-6">
-                <span class="input-group-text" id="basic-addon5">Curso</span>
-                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon5" formControlName="curso" placeholder="Curso">
-            </div>
-            
-            <div class="input-group col-6">
-                <span class="input-group-text" id="basic-addon6">Colegio/Institucion</span>
-                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon6" formControlName="institucion" placeholder="Curso">
-            </div>
-             -->
-        </div>
-        <hr>
-        <div class="row">
-            <!-- <div class="input-group">
-                <span class="input-group-text">Comentarios</span>
-                <textarea class="form-control" aria-label="Comentarios" formControlName="comentarios" placeholder="Comentarios"></textarea>
-            </div> -->
         </div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button *ngIf="(modo === 'EDITAR')" (click)="modificar()" class="btn bg-dark btn-block text-light">Modificar</button>
@@ -166,62 +121,4 @@
         
     </form>
 </div>
-<hr>
-<!-- 
--->
 
-
-<!-- Ver    = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  
-    <p>{{alumno|json}}</p>
-    
-    
-<div *ngIf="modo ==='VER'">
-    
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    {{alumno.nombre}} {{alumno.apellido}}
-                </div>
-                <div class="card-body">
-                    
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            DNI: <h5>{{alumno.sexo}}</h5>
-                        </li>
-                        <li class="list-group-item">
-                            Email: <h5>{{alumno.email}}</h5>
-                        </li>
-                        <li class="list-group-item">
-                            Institucion: <h5>{{alumno.institucion}}</h5>
-                        </li>
-                        <li class="list-group-item">
-                            Curso: <h5>{{alumno.curso}}</h5>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-  </div>
-  <hr>
-  <p>{{alumno|json}}</p>
-
-</div>
-
-
-
-
-
-<div class="row">
-    <hr>
-    <div class="col-12">
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <p>=> {{modo}}</p>
-            <p>=> {{modo !== 'LISTAR'}}</p>
-            <button *ngIf="(modo != 'LISTAR')" class="btn bg-dark btn-block text-light" (click)="listadoIniciar()">Ir a Listado</button>
-        </div>
-    </div>
-    <hr>
-</div>
-
--->

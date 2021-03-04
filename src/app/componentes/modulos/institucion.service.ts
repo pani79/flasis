@@ -22,7 +22,7 @@ export class InstitucionService {
 
   constructor(private readonly afs: AngularFirestore) { 
     this.institucionesColleccion = afs.collection<Institucion>('instituciones');
-    this.institucionesTraer();
+    this.institucionesObtener();
   }
 
   private institucionesTraer():void {
@@ -33,6 +33,7 @@ export class InstitucionService {
       ))
     );
   }
+  
   institucionesObtener(): Observable<Institucion[]> {
     return this.institucionesColleccion
       .snapshotChanges()
@@ -49,6 +50,12 @@ export class InstitucionService {
     );
   }
 
+  
+  institucionObtenerPorId(id: string) {
+    return this.institucionesColleccion.doc(id).snapshotChanges();
+    //this.firestore.collection('cats').doc(documentId).snapshotChanges();
+  }
+
   /* institucionesObtener() {    return this.instituciones;  } */
 
   
@@ -59,7 +66,10 @@ export class InstitucionService {
       try {
         const id = InstitucionId || this.afs.createId();
         const info = {id, ...Institucion};
-        const resultado = await this.institucionesColleccion.doc(id).set(info);
+        const resultado = await this.institucionesColleccion.doc(id).set(info)
+        //.then((docRef) => {          console.log("Document written with ID: ", JSON.stringify(docRef));        })
+        // https://stackoverflow.com/questions/48284184/save-id-to-firestore-document
+        ;
         resolve(resultado);
       } catch (error) {
         rejecct(error.message)

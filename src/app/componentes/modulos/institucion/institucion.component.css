@@ -1,0 +1,13 @@
+.formulario > .row > div{
+    border: 2px solid rgba(0, 0, 0, .1);
+    border-radius: 2px;
+}
+.formulario > .row > div > div{ padding: 10px; }
+.formulario > .row > div > div > *{ width: 100%; }
+
+
+.formulario > .row > div > div > *{ border: 2px solid rgba(0, 0, 0, .8); }
+.formulario > .row > div > div,
+.formulario > .row{
+    border: 2px dotted rgba(255, 255, 0, .5);
+}

@@ -69,6 +69,11 @@ export class CursoService {
     );
   }
   
+  cursoObtenerPorId(id: string) {
+    return this.cursosColleccion.doc(id).snapshotChanges();
+    //this.firestore.collection('cats').doc(documentId).snapshotChanges();
+  }
+
   cursoGuardar(Curso: Curso, InstitucionId: string): Promise<void> {
     console.log('InstitucionGuardar => ' + JSON.stringify(Curso));
     console.log('InstitucionId => ' + InstitucionId);

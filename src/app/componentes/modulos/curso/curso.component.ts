@@ -4,13 +4,21 @@
 
 
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
+import { Router, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+//  Modelo
 import { Curso } from 'src/app/modelos/curso.interface';
-
+import { Institucion } from 'src/app/modelos/institucion.interface';
+//  Servicios
+import { FlasisService } from 'src/app/flasis.service';
 import { CursoService } from '../curso.service';
-import { Router } from '@angular/router';
+import { InstitucionService } from '../institucion.service';
+//  Datos
+import { CURSO_TIPOS } from 'src/app/informacion/datos';
+
+
 
 @Component({
   selector: 'app-curso',
@@ -19,74 +27,92 @@ import { Router } from '@angular/router';
 })
 export class CursoComponent implements OnInit {
 
-  
-  curso: Curso;
+  curso: any;
   formularioCurso: FormGroup;
-  cursos$: any;
+ // cursos$: any;
   modo= 'LISTAR';
-  titulo = 'Listado de cursoes';
+  titulo = 'Listado de cursos';
+  instituciones: Institucion[]=[];
+  tipoCursos: {};
+  cargaInfo = {
+    cargando: true,
+    titulo: 'Cargando',
+    detalle: 'Cargando metadatos en proceso.'
+  }
+  infoPagina =  {titulo: 'Batman', info: 'BW'}
+
+  @Input() hijo: boolean;
 
 
   constructor(
+    private servicioFasis:FlasisService,
     private servicioCurso: CursoService,
+    private servicioInstitucion: InstitucionService,
     private fb: FormBuilder,
-    private router: Router
+    private ruta: ActivatedRoute,
+    private router: Router,
+    private location: Location
     ) { 
-      this.cursos$ = this.servicioCurso.cursos;
-      this.formularioIniciar();
+      this.tipoCursos = CURSO_TIPOS;
     }
 
-  ngOnInit() { }
+  ngOnInit() {
+    console.log('hijo > ' + this.hijo);
+    
+    this.cargaInfo.titulo = 'Preparando'; 
+    if(this.hijo) this.cursoObtiene(); 
+    this.servicioInstitucion.institucionesObtener().subscribe(
+      infoInstituciones => {
+        this.instituciones = infoInstituciones;
+      }
+    );
+  }
 
 
-  //  Lista    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   
-  listadoIniciar() {
-    //this.cursos$ = this.servicioCurso.cursos;
-    //this.cursos$ = this.servicioCurso.cursosTraer();
-    //this.servicioCurso.cursosTraer().subscribe(      (infoAlumnos) => {  this.cursos$ = infoAlumnos;}   );
-    this.servicioCurso.cursosObtener();
-    this.modo = 'LISTAR';
-  }
-
-  clickCrear() {
-    console.log('CREAR => ');
-    this.titulo = 'Crear una nuevo curso';
-    this.formularioIniciar();
-    this.modo = 'CREAR';
-  }
-
-  clickEdiar(curso: Curso) {
-    console.log('EDITAR => ' + JSON.stringify(curso));
-    this.titulo = 'Editar curso ' +  curso.nombre;
-    this.curso = curso;
-    this.formularioIniciar();
-    this.modo = 'EDITAR';
-  }
-
-  clickVer(curso: Curso) {
-    console.log('VER => ' + JSON.stringify(curso));
-    this.curso = curso;
-    this.formularioIniciar();
-    this.modo = 'VER';
+  clickIrAlListado() {    this.servicioFasis.navegarA('cursos'); }
+  
+  formularioClickOpcion (valor, valor2) {
+    console.log('formularioClickOpcion REVEER');
   }
   
-  clickBorrar(cursoId: string) {
-    console.log('Borrar => ' + cursoId);
-    this.servicioCurso.cursoEliminar(cursoId);
+  cursoObtiene() {
+    console.log('cursoObtiene');
+    const id = this.ruta.snapshot.paramMap.get('id');
+    console.log(id);
+    if(id !== '') {
+      this.servicioCurso.cursoObtenerPorId(id).subscribe(
+        (curso) => {
+          this.curso = curso.payload.data();
+          console.log('curso => ' + this.curso.nombre);
+          console.log('curso = ' + JSON.stringify(this.curso));
+          this.formularioIniciar();
+          this.modo = 'EDITAR';
+          this.infoPagina =  {titulo: 'Editar curso', info: 'Aca champion vas a poder editar al chango.'}
+          this.cargaInfo.cargando = false;
+        }
+      );
+    } else if(id === '') {
+      this.cargaInfo.cargando = false;
+      this.formularioIniciar();
+      this.infoPagina =  {titulo: 'Crear un curso nuevo', info: 'Dale, rellena al chango.'}
+      this.modo = 'CREAR';
+    } else {  console.log('UOPPPS <= '); }
   }
 
   //  Crea | Edita    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   
   formularioIniciar() {
     this.formularioCurso = this.fb.group({
-      nombre: ['', [Validators.required]],
       institucion: ['', [Validators.required]],
-      nivel: [null, [Validators.required]]
+      tipo_curso: [''],
+      nombre: ['', [Validators.required]],
+      nivel: [null, [Validators.required]],
+      division: [null]
     });
     if (typeof this.curso === 'undefined') {
       // this.router.navigate(['new']);
-      this.curso = { id: null, nombre: null, institucion: null, nivel: null}
+      this.curso = { id: null, nombre: null, institucion: null, nivel: null, division: null, tipo: null }
     } else {
       console.log('relleno');
       this.formularioCurso.patchValue(this.curso);
@@ -99,17 +125,8 @@ export class CursoComponent implements OnInit {
     const cursoId = this.curso.id || null;
     /* const cursoId = this.curso?.id || null; */
     this.servicioCurso.cursoGuardar(curso, cursoId);
-     
-    /* 
-    console.log('Saved', this.form.value);
-    if (this.employeeForm.valid) {
-      const employee = this.employeeForm.value;
-      const employeeId = this.employee?.id || null;
-      this.employeesSvc.onSaveEmployee(employee, employeeId);
-      this.employeeForm.reset();
-    }
- */
   }
+  
   modificar() {
     console.log('modificar', this.formularioCurso.value);
     const curso = this.formularioCurso.value;
@@ -118,16 +135,6 @@ export class CursoComponent implements OnInit {
     console.log('cursoId', cursoId);
     /* const cursoId = this.curso?.id || null; */
     this.servicioCurso.cursoGuardar(curso, cursoId);
-     
-    /* 
-    console.log('Saved', this.form.value);
-    if (this.employeeForm.valid) {
-      const employee = this.employeeForm.value;
-      const employeeId = this.employee?.id || null;
-      this.employeesSvc.onSaveEmployee(employee, employeeId);
-      this.employeeForm.reset();
-    }
- */
   }
 
 

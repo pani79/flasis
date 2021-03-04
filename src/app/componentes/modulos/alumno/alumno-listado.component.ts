@@ -26,7 +26,7 @@ export class AlumnoListadoComponent implements OnInit, AfterViewInit {
   //alumnos$: this.servicioAlumno.alumnos;
   //alumnos: Alumno[] = [];
   alumno: Alumno;
-  alumnos$: any;
+  //alumnos$: any;
   modo= 'LISTAR';
   titulo = 'Listado de alumnos';
   
@@ -58,14 +58,6 @@ export class AlumnoListadoComponent implements OnInit, AfterViewInit {
 
   //  Lista    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   
-  listadoIniciar() {
-    //this.alumnos$ = this.servicioAlumno.alumnos;
-    //this.alumnos$ = this.servicioAlumno.alumnosTraer();
-    //this.servicioAlumno.alumnosTraer().subscribe(      (infoAlumnos) => {  this.alumnos$ = infoAlumnos;}   );
-    this.servicioAlumno.alumnosTraer();
-    this.modo = 'LISTAR';
-  }
-
   clickBorrar(alumnoId: string) {    this.servicioAlumno.alumnoEliminar(alumnoId);  }
   clickCrear() {    this.servicioFasis.navegarA('alumno/'); }
   clickEdiar(alumno: Alumno) {    this.servicioFasis.navegarA('alumno/'+ alumno.id);  }
