@@ -89,12 +89,13 @@
             <button *ngIf="(modo === 'CREAR')" (click)="guardar()" class="btn bg-dark btn-block text-light">Guardar</button>
         </div>
         
-        <hr>
         
     </form>
 </div>
 
-<div *ngIf="modo ==='EDITAR'"><!--  -->
+<hr>
+<p>{{infoHijo|json}}</p>
+<div *ngIf="infoHijo['institucion']"><!--  -->
     <app-curso [inputInfo]="infoHijo"></app-curso>
 </div>
 

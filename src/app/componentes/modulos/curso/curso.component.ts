@@ -69,6 +69,7 @@ export class CursoComponent implements OnInit {
     */
     this.cargaInfo.titulo = 'Preparando'; 
     if(this.inputInfo === undefined) {
+      // NO esta cargado a traves de el componente INSTITUCION
       console.log('e UNDEFINED'); 
       this.infoObtieneInstituciones();
       //this.cargaInfo.cargando = false;
@@ -79,10 +80,16 @@ export class CursoComponent implements OnInit {
       const id = this.ruta.snapshot.paramMap.get('id');
       console.log(id);
       if(id !== '') {
+        // curso desde institucion nueva
+        this.infoPagina =  {titulo: ('Crear un curso nuevo en la ins ' + id), info: 'Dale, rellena al chango.'}
         this.infoObtieneInstitucion(id)
-      } else {  console.log('UOPPPS <= '); }
+      } else {  
+        // curso desde institucion nueva
+        this.infoPagina =  {titulo: ('Crear un curso nuevo en la ins NUEVA'), info: 'Dale, rellena al chango.'}
+        console.log('UOPPPS <= '); 
+      }
     }   
-    if(this.inputInfo) this.cursoObtiene(); 
+    //if(this.inputInfo) this.cursoObtiene(); 
   }
   
   infoObtieneInstituciones() {
@@ -95,14 +102,17 @@ export class CursoComponent implements OnInit {
   }
 
   infoObtieneInstitucion(id: string) {
-    this.servicioCurso.cursoObtenerPorId(id).subscribe(
-      (curso) => {
-        this.curso = curso.payload.data();
-        console.log('curso => ' + this.curso.nombre);
-        console.log('curso = ' + JSON.stringify(this.curso));
+    this.servicioInstitucion.institucionObtenerPorId(id).subscribe(
+      (institucion) => {
         this.formularioIniciar();
-        this.modo = 'EDITAR';
-        this.infoPagina =  {titulo: 'Editar curso', info: 'Aca champion vas a poder editar al chango.'}
+        this.instituciones = [];
+        this.instituciones.push(institucion.payload.data() as Institucion)
+        //this.formularioCurso.controls['institucion'].setValue(institucion.payload.data()['nombre'])
+        console.log('pload ' + institucion.payload.data()['nombre']);
+        
+        this.formularioCurso.get('institucion').setValue(institucion.payload.data()['id'])
+        this.formularioCurso.controls['institucion'].disable()
+        this.modo = 'CREAR';
         this.cargaInfo.cargando = false;
       }
     );

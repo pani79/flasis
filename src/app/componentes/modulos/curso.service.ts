@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
 
 import { AngularFirestoreCollection, AngularFirestore } from "@angular/fire/firestore";
 import { Curso } from 'src/app/modelos/curso.interface';
+import { Institucion } from 'src/app/modelos/institucion.interface';
 //import { async } from '@angular/core/testing';
 
 

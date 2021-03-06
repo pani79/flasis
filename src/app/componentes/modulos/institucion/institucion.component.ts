@@ -39,7 +39,7 @@ export class InstitucionComponent implements OnInit {
     detalle: 'Cargando metadatos en proceso.'
   }
   infoPagina =  {titulo: 'Batman', info: 'BW'}
-  infoHijo = { muestra: true }
+  infoHijo = {}
 
   constructor(
     private ruta: ActivatedRoute,
@@ -80,6 +80,7 @@ export class InstitucionComponent implements OnInit {
           this.modo = 'EDITAR';
           this.infoPagina =  {titulo: 'Editar aulmno', info: 'Aca champion vas a poder editar al chango.'}
           this.cargaInfo.cargando = false;
+          this.infoHijo = { institucion: this.institucion}
         }
       );
     } else if(id === '') {
