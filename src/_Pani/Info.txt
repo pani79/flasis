@@ -2,6 +2,10 @@
 https://youtu.be/nEfemck6iNk
 https://www.typewolf.com/google-fonts
 
+
+https://github.com/angular/angularfire/blob/master/docs/firestore/querying-collections.md
+https://javascript.plainenglish.io/how-to-do-crud-with-query-operations-in-firebase-with-firestore-angular-ionic-web-9c9e3db4ce72
+
 // Instalaciones        . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 
 npm i @angular-devkit/build-angular (angular 11)

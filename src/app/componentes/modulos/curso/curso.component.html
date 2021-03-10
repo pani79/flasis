@@ -1,8 +1,5 @@
 <h2>{{infoPagina.titulo}}</h2>
 <p>{{infoPagina.info}}</p>
-<p>hijo > {{hijo}}</p>
-<p>inputInfo > {{inputInfo|json}}</p>
-<p>instituciones > {{instituciones|json}}</p>
 
 <div *ngIf="curso">
     sep
@@ -56,8 +53,8 @@
                     <mat-form-field class="example-form-field">
                       <mat-label>Tipo de curso</mat-label>
                       <mat-select formControlName="tipo_curso" placeholder="Tipo">
-                        <mat-option *ngFor="let tipoCurso of tipoCursos" [value]="tipoCurso.id">
-                          {{tipoCurso.nombre}}
+                        <mat-option *ngFor="let tipoCurso of tipoCursos" [value]="tipoCurso.id"><!-- (click)="formularioClickOpcion('TIPO_CURSO', establecimiento)" -->
+                                {{tipoCurso.nombre}}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
@@ -91,7 +88,7 @@
         <div class="row">
         </div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button *ngIf="(modo === 'EDITAR')" (click)="modificar()" class="btn bg-dark btn-block text-light">Modificar</button>
+            <button *ngIf="(modo === 'EDITAR')" (click)="guardar()" class="btn bg-dark btn-block text-light">Modificar</button>
             <button *ngIf="(modo === 'CREAR')" (click)="guardar()" class="btn bg-dark btn-block text-light">Guardar</button>
         </div>
         
@@ -99,3 +96,9 @@
     </form>
 </div>
 
+<hr>
+<p>curso > {{curso|json}}</p>
+<p>modo > {{modo}}</p>
+<!-- <p>hijo > {{hijo}}</p> -->
+<p>inputInfo > {{inputInfo|json}}</p>
+<p>instituciones > {{instituciones|json}}</p>

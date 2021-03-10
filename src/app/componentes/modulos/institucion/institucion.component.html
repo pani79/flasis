@@ -78,7 +78,11 @@
                 <div>
                     <h4>Cursos de la institucion</h4>
                     <div>
-                        <p>cursos > {{cursos|json}}</p>
+                        <p>cursos {{cursos.length}}</p>
+                        <!-- <p>cursos > {{cursos|json}}</p> -->
+                        <div class="card" *ngFor="let curso of cursos">
+                            {{curso.nivel}} {{curso.division}} ({{curso.tipo}})
+                        </div>
                     </div>
                 </div>                
             </div>

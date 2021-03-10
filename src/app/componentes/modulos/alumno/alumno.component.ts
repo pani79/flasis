@@ -120,12 +120,12 @@ export class AlumnoComponent implements OnInit {
       email: ['', [Validators.required]],
       institucion: ['', [Validators.required]],
       curso: ['', [Validators.required]],
-      division: ['', [Validators.required]],
+      //division: ['', [Validators.required]],
       comentarios: ['', [Validators.required]]
     });
     if (typeof this.alumno === 'undefined') {
       // this.router.navigate(['new']);
-      this.alumno = { id: null, nombre: null, apellido: null, sexo: null, email: null, institucion: null, curso: null, division: null, comentarios: null }
+      this.alumno = { id: null, nombre: null, apellido: null, sexo: null, email: null, institucion: null, curso: null,  comentarios: null }// division: null,
     } else {
       console.log('relleno');
       this.formularioAlumno.patchValue(this.alumno);

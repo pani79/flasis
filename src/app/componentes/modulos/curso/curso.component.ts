@@ -28,10 +28,9 @@ import { JsonpClientBackend } from '@angular/common/http';
 })
 export class CursoComponent implements OnInit {
 
-  curso: any;
+  curso: Curso;
   formularioCurso: FormGroup;
- // cursos$: any;
-  modo= 'LISTAR';
+  modo: string;
   titulo = 'Listado de cursos';
   instituciones: Institucion[]=[];
   tipoCursos: {};
@@ -60,6 +59,7 @@ export class CursoComponent implements OnInit {
   ngOnInit() {
     console.log('input > ' + JSON.stringify(this.inputInfo));
     console.log(this.inputInfo);
+    console.log(this.inputInfo == undefined);
     /* 
       cargaInfo = {
         cargando: true,
@@ -67,36 +67,44 @@ export class CursoComponent implements OnInit {
         detalle: 'Cargando metadatos en proceso.'
       }
     */
+    this.formularioIniciar();
     this.cargaInfo.titulo = 'Preparando'; 
-    if(this.inputInfo === undefined) {
-      // NO esta cargado a traves de el componente INSTITUCION
-      console.log('e UNDEFINED'); 
-      this.infoObtieneInstituciones();
-      //this.cargaInfo.cargando = false;
-      this.formularioIniciar();
-      this.infoPagina =  {titulo: 'Crear un curso nuevo', info: 'Dale, rellena al chango.'}
-      this.modo = 'CREAR';
-    }else {
+    if(this.inputInfo == undefined) {   
+      console.log('no hay inputInfo');         
       const id = this.ruta.snapshot.paramMap.get('id');
       console.log(id);
-      if(id !== '') {
+      if(id !== '') {        
+        this.modo = 'EDITAR';
         // curso desde institucion nueva
-        this.infoPagina =  {titulo: ('Crear un curso nuevo en la ins ' + id), info: 'Dale, rellena al chango.'}
-        this.infoObtieneInstitucion(id)
+        this.cursoObtiene(id)
       } else {  
+        this.modo = 'CREAR';
+        this.infoObtieneInstituciones()
         // curso desde institucion nueva
         this.infoPagina =  {titulo: ('Crear un curso nuevo en la ins NUEVA'), info: 'Dale, rellena al chango.'}
         console.log('UOPPPS <= '); 
       }
+        
+        /* 
+        // NO esta cargado a traves de el componente INSTITUCION
+        console.log('e UNDEFINED'); 
+        this.infoObtieneInstituciones();
+        //this.cargaInfo.cargando = false;
+        this.infoPagina =  {titulo: 'Crear un curso nuevo', info: 'Dale, rellena al chango.'}
+        */
+    }else {
+      console.log('hay inputInfo');
+      this.infoPagina =  {titulo: ('Crear un curso nuevo en la ins ' + this.inputInfo['institucion']['id']), info: 'Dale, rellena al chango.'}
     }   
     //if(this.inputInfo) this.cursoObtiene(); 
   }
   
   infoObtieneInstituciones() {
+    this.cargaInfo = {      cargando: true, titulo: 'Cargando instituciones', detalle: 'En proceso.'    }
     this.servicioInstitucion.institucionesObtener().subscribe(
       infoInstituciones => {
         this.instituciones = infoInstituciones;
-        this.cargaInfo.cargando = false; 
+        this.cargaInfo['cargando'] = false; 
       }
     );
   }
@@ -104,7 +112,6 @@ export class CursoComponent implements OnInit {
   infoObtieneInstitucion(id: string) {
     this.servicioInstitucion.institucionObtenerPorId(id).subscribe(
       (institucion) => {
-        this.formularioIniciar();
         this.instituciones = [];
         this.instituciones.push(institucion.payload.data() as Institucion)
         //this.formularioCurso.controls['institucion'].setValue(institucion.payload.data()['nombre'])
@@ -112,31 +119,26 @@ export class CursoComponent implements OnInit {
         
         this.formularioCurso.get('institucion').setValue(institucion.payload.data()['id'])
         this.formularioCurso.controls['institucion'].disable()
-        this.modo = 'CREAR';
         this.cargaInfo.cargando = false;
       }
     );
   }
 
-  cursoObtiene() {
+  cursoObtiene(id: string) {
     console.log('cursoObtiene');
-    const id = this.ruta.snapshot.paramMap.get('id');
     console.log(id);
     if(id !== '') {
       this.servicioCurso.cursoObtenerPorId(id).subscribe(
         (curso) => {
-          this.curso = curso.payload.data();
+          this.curso = curso.payload.data() as Curso;
           console.log('curso => ' + this.curso.nombre);
           console.log('curso = ' + JSON.stringify(this.curso));
-          this.formularioIniciar();
-          this.modo = 'EDITAR';
           this.infoPagina =  {titulo: 'Editar curso', info: 'Aca champion vas a poder editar al chango.'}
           this.cargaInfo.cargando = false;
         }
       );
     } else if(id === '') {
       this.cargaInfo.cargando = false;
-      this.formularioIniciar();
       this.infoPagina =  {titulo: 'Crear un curso nuevo', info: 'Dale, rellena al chango.'}
       this.modo = 'CREAR';
     } else {  console.log('UOPPPS <= '); }
@@ -145,8 +147,16 @@ export class CursoComponent implements OnInit {
   
   clickIrAlListado() {    this.servicioFasis.navegarA('cursos'); }
   
-  formularioClickOpcion (valor, valor2) {
+  formularioClickOpcion (elemento: string, valor: any) {
     console.log('formularioClickOpcion REVEER');
+    if(elemento === 'ESTABLECIMIENTO') {
+      this.curso.institucion_id = valor['id'];
+      this.curso.institucion_nombre = valor['nombre'];
+    }else if(elemento === 'TIPO_CURSO') {
+      this.curso.institucion_id = valor['id'];
+    }else {
+      console.log('UOPS en formularioClickOpcion');
+    }
   }
   
 
@@ -162,7 +172,7 @@ export class CursoComponent implements OnInit {
     });
     if (typeof this.curso === 'undefined') {
       // this.router.navigate(['new']);
-      this.curso = { id: null, nombre: null, institucion: null, nivel: null, division: null, tipo: null }
+      this.curso = { id: null, nombre: null, institucion_id: null, institucion_nombre: null, tipo_curso: null, nivel: null, division: null, tipo: null }
     } else {
       console.log('relleno');
       this.formularioCurso.patchValue(this.curso);
@@ -170,22 +180,32 @@ export class CursoComponent implements OnInit {
   }
 
   guardar() {
-    console.log('Saved', this.formularioCurso.value);
-    const curso = this.formularioCurso.value;
+    console.log('MODO '  + this.modo + ' > ' +  JSON.stringify(this.formularioCurso.value));
+    //const curso = this.formularioCurso.value;
+    this.curso.tipo_curso = this.formularioCurso.get('tipo_curso').value;
+    this.curso.nombre = this.formularioCurso.get('nombre').value;
+    this.curso.nivel = this.formularioCurso.get('nivel').value;
+    this.curso.division = this.formularioCurso.get('division').value;
+    const curso = this.curso;
     const cursoId = this.curso.id || null;
-    /* const cursoId = this.curso?.id || null; */
-    this.servicioCurso.cursoGuardar(curso, cursoId);
+    this.servicioCurso.cursoGuardar(curso, cursoId)
+      .then(
+        (res) => {
+          console.log(res)
+        }
+      );
   }
-  
+  /* 
   modificar() {
+    console.log('MODO '  + this.modo);
     console.log('modificar', this.formularioCurso.value);
     const curso = this.formularioCurso.value;
     const cursoId = this.curso.id || null;
     //console.log('cursoId', cursoId);
     console.log('cursoId', cursoId);
-    /* const cursoId = this.curso?.id || null; */
+    //const cursoId = this.curso?.id || null;
     this.servicioCurso.cursoGuardar(curso, cursoId);
   }
-
+ */
 
 }

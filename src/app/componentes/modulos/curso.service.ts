@@ -5,10 +5,13 @@
 
 
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { AngularFirestoreCollection, AngularFirestore } from "@angular/fire/firestore";
+import 'firebase/firestore';
+//import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+
 import { Curso } from 'src/app/modelos/curso.interface';
 import { Institucion } from 'src/app/modelos/institucion.interface';
 //import { async } from '@angular/core/testing';
@@ -22,15 +25,68 @@ import { Institucion } from 'src/app/modelos/institucion.interface';
 export class CursoService {
 
   cursos: Observable<Curso[]>;
+  cc: AngularFirestoreCollection<Curso>;
   private cursosColleccion: AngularFirestoreCollection<Curso>;
 
-  constructor(private readonly afs: AngularFirestore) { 
+  constructor(
+    private readonly afs: AngularFirestore
+    //, public db: AngularFireDatabase
+  ) { 
     this.cursosColleccion = afs.collection<Curso>('cursos');
     this.cursosObtener();
   }
 
 
-   cursosObtener(): Observable<Curso[]> {
+  cursoObtenerPorInstitucion(idInstitucion: string)  {
+    return this.afs.collection(
+      'cursos', ref => {
+        // declare var `query` of type either `CollectionReference` or `Query`
+        let query: firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
+
+        // 👇 the below conditions will be applied to query
+        // 👇 only when params have value in given `employee` object.
+
+        // where condition to match employee with given phone
+        //if (employee.phone) {
+          query = query.where('institucion_id', '==', idInstitucion);
+        //}
+        return query;
+      }).snapshotChanges();
+
+
+    //return this.afs.collection<Curso[]>('cursos', ref => ref.where('institucion_id', '==', idInstitucion)).snapshotChanges()
+    
+    /*
+      this.afs.collection('cursos', ref => ref.where('institucion_id', '==', idInstitucion)).valueChanges().subscribe(
+        curso => {
+          console.log(curso);
+          cursos.push(curso)
+        } 
+      );
+    */
+    //console.log('cursos > ' + JSON.stringify(cursos));
+    //return this.cursos
+    /* 
+        this.afs.collection<Curso>('cursos', ref => {
+          ref.where('size', '==', size)).valueChanges()
+        });
+        let items = this.cursosColleccion.list('/candidates_list',{
+          query:{
+            orderByChild:'email',
+            equalTo:'pranavkeke@gmail.com'
+          }})
+          .map(item => item.FirstName) as FirebaseListObservable<any[]>;
+    
+        var query = this.cursosColleccion.where("capital", "==", true);
+        return query
+     */
+    //debugger;
+    //this.db.list('/cursos', ref => ref.orderByChild('institucion_id').equalTo(idInstitucion));
+    //return this.cursosColleccion.doc(id).snapshotChanges();
+    //this.firestore.collection('cats').doc(documentId).snapshotChanges();
+  }
+
+  cursosObtener(): Observable<Curso[]> {
     return this.cursosColleccion
       .snapshotChanges()
       .pipe(
@@ -75,15 +131,20 @@ export class CursoService {
     //this.firestore.collection('cats').doc(documentId).snapshotChanges();
   }
 
-  cursoGuardar(Curso: Curso, InstitucionId: string): Promise<void> {
+  
+
+  cursoGuardar(Curso: Curso, InstitucionId: string): Promise<any> {
     console.log('InstitucionGuardar => ' + JSON.stringify(Curso));
     console.log('InstitucionId => ' + InstitucionId);
     return new Promise( async (resolve, rejecct) => {
       try {
         const id = InstitucionId || this.afs.createId();
         const info = {id, ...Curso};
+        console.log('guardado como > ' + id);
         const resultado = await this.cursosColleccion.doc(id).set(info);
-        resolve(resultado);
+        console.log(resultado);
+        
+        resolve(id);
       } catch (error) {
         rejecct(error.message)
       }

@@ -59,7 +59,7 @@ export class InstitucionService {
   /* institucionesObtener() {    return this.instituciones;  } */
 
   
-  institucionGuardar(Institucion: Institucion, InstitucionId: string): Promise<void> {
+  institucionGuardar(Institucion: Institucion, InstitucionId: string): Promise<any> {
     console.log('InstitucionGuardar => ' + JSON.stringify(Institucion));
     console.log('InstitucionId => ' + InstitucionId);
     return new Promise( async (resolve, rejecct) => {
@@ -67,15 +67,34 @@ export class InstitucionService {
         const id = InstitucionId || this.afs.createId();
         const info = {id, ...Institucion};
         const resultado = await this.institucionesColleccion.doc(id).set(info)
+        console.log('guardado como > ' + id);
         //.then((docRef) => {          console.log("Document written with ID: ", JSON.stringify(docRef));        })
-        // https://stackoverflow.com/questions/48284184/save-id-to-firestore-document
-        ;
-        resolve(resultado);
+        // https://stackoverflow.com/questions/48284184/save-id-to-firestore-document        ;
+        resolve(id);
       } catch (error) {
         rejecct(error.message)
       }
     })
   }
+  /* 
+  cursoGuardar(Curso: Curso, InstitucionId: string): Promise<any> {
+    console.log('InstitucionGuardar => ' + JSON.stringify(Curso));
+    console.log('InstitucionId => ' + InstitucionId);
+    return new Promise( async (resolve, rejecct) => {
+      try {
+        const id = InstitucionId || this.afs.createId();
+        const info = {id, ...Curso};
+        console.log('guardado como > ' + id);
+        const resultado = await this.cursosColleccion.doc(id).set(info);
+        console.log(resultado);
+        
+        resolve(id);
+      } catch (error) {
+        rejecct(error.message)
+      }
+    })
+  }
+  */
   
   institucionEliminar(InstitucionId: string): Promise<void> {
     return new Promise( async (resolve, rejecct) => {

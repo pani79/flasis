@@ -30,7 +30,7 @@ export class InstitucionComponent implements OnInit {
   formularioInstitucion: FormGroup;
   modo: string;
   instituciones: Institucion[];
-  cursos: Curso[];
+  cursos: Curso[]= [];
   niveles:{}[];
   //sexos = [];
   cargaInfo = {
@@ -78,9 +78,22 @@ export class InstitucionComponent implements OnInit {
           console.log('institucion = ' + JSON.stringify(this.institucion));
           this.formularioIniciar();
           this.modo = 'EDITAR';
+          this.servicioCurso.cursoObtenerPorInstitucion(this.institucion.id).subscribe(
+            (info) => { 
+              this.cursos  = info.map(e => {
+                return {
+                  id: e.payload.doc.id,
+                  ...e.payload.doc.data()
+                } as Curso;
+              });
+            }
+          );
+          console.log('cursos')
+          console.log(JSON.stringify(this.cursos))
           this.infoPagina =  {titulo: 'Editar aulmno', info: 'Aca champion vas a poder editar al chango.'}
           this.cargaInfo.cargando = false;
           this.infoHijo = { institucion: this.institucion}
+          this.servicioCurso.cursoObtenerPorInstitucion(this.institucion.id)
         }
       );
     } else if(id === '') {
@@ -115,13 +128,31 @@ export class InstitucionComponent implements OnInit {
     const institucion = this.formularioInstitucion.value;
     const institucionId = this.institucion.id || null;
     /* const institucionId = this.institucion?.id || null; */
-    let resultado = this.servicioInstitucion.institucionGuardar(institucion, institucionId);
+    let resultado = this.servicioInstitucion.institucionGuardar(institucion, institucionId)
+    .then(
+      (res) => {
+        console.log(res)
+        institucion.id = res
+      }
+    );
     console.log('r => ' + JSON.stringify(resultado));
     this.formularioInstitucion.controls['nombre'].disable();
     this.formularioInstitucion.controls['descripcion'].disable();
     this.formularioInstitucion.controls['nivel'].disable();
     this.infoHijo['institucion'] = institucion;
+    this.servicioCurso.cursoObtenerPorInstitucion(institucion.id).subscribe(
+      (info) => { 
+        this.cursos  = info.map(e => {
+          return {
+            id: e.payload.doc.id,
+            ...e.payload.doc.data()
+          } as Curso;
+        });
+      }
+    );
     this.modo ='EDITAR';
+    console.log('cursos')
+    console.log(JSON.stringify(this.cursos))
   }
   
   modificar() {
