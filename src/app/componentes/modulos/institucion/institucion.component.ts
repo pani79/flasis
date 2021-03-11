@@ -30,7 +30,7 @@ export class InstitucionComponent implements OnInit {
   formularioInstitucion: FormGroup;
   modo: string;
   instituciones: Institucion[];
-  cursos: Curso[]= [];
+  cursos: Curso[] = [];
   niveles:{}[];
   //sexos = [];
   cargaInfo = {
@@ -99,7 +99,7 @@ export class InstitucionComponent implements OnInit {
     } else if(id === '') {
       this.cargaInfo.cargando = false;
       this.formularioIniciar();
-      this.infoPagina =  {titulo: 'Crear un aulmno nuevo', info: 'Dale, rellena al chango.'}
+      this.infoPagina =  {titulo: 'Crear una nueva institución', info: 'Dale, rellena al chango.'}
       this.modo = 'CREAR';
     } else {  console.log('UOPPPS <= '); }
   }

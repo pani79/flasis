@@ -33,7 +33,7 @@ export class AlumnoComponent implements OnInit {
   formularioAlumno: FormGroup;
   modo: string;
   instituciones: Institucion[];
-  cursos: Curso[];
+  cursos: Curso[] = [];
   sexos = [];
   cargaInfo = {
     cargando: true,
@@ -69,19 +69,19 @@ export class AlumnoComponent implements OnInit {
     this.servicioInstitucion.institucionesObtener().subscribe(
       infoInstituciones => {
         this.instituciones = infoInstituciones;
-        this.servicioCurso.cursosObtener().subscribe(
-          infoCursos => {
-            this.cursos = infoCursos;
-          }
-        );
       }
     );
   }
   
   clickIrAlListado() {    this.servicioFasis.navegarA('alumnos'); }
   
-  formularioClickOpcion (valor, valor2) {
-    console.log('formularioClickOpcion REVEER');
+  formularioClickOpcion (tipo: string, valor2: any) {
+    console.log('formularioClickOpcion REVEER', tipo, valor2);
+    if (tipo === 'ESTABLECIMIENTO') {
+      this.cursosObtiene(valor2)
+    } else {  console.log('UOPPPS <= '); }
+
+    //formularioClickOpcion('ESTABLECIMIENTO', establecimiento.id)
   }
 
   alumnoObtiene() {
@@ -106,6 +106,20 @@ export class AlumnoComponent implements OnInit {
       this.infoPagina =  {titulo: 'Crear un aulmno nuevo', info: 'Dale, rellena al chango.'}
       this.modo = 'CREAR';
     } else {  console.log('UOPPPS <= '); }
+  }
+  
+  cursosObtiene(idInstitucion: string) {
+    console.log('cursosObtiene => ' + idInstitucion);
+    this.servicioCurso.cursoObtenerPorInstitucion(idInstitucion).subscribe(
+      (info) => { 
+        this.cursos  = info.map(e => {
+          return {
+            id: e.payload.doc.id,
+            ...e.payload.doc.data()
+          } as Curso;
+        });
+      }
+    );
   }
 
 

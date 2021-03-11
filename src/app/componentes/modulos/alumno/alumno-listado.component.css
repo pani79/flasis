@@ -12,6 +12,9 @@
 table{ width: 100%;}
 table td{ height: 20px;}
 table td:last-child{ min-width: 300px;}
+
+/* 
+DEBUG
 table td{border: 2px dotted tomato;}
 table td > *{border: 1px dotted blueviolet;}
-
+ */

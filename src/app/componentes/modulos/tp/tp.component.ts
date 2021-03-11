@@ -28,7 +28,7 @@ export class TpComponent implements OnInit {
   tp: any;
   formularioTp: FormGroup;
   modo: string;
-  infoPagina =  {titulo: 'Batman', info: 'BW'}
+  infoPagina =  {titulo: 'Trabajo práctico', info: 'X de trabajos prácticos.'}
 
   constructor(
     private ruta: ActivatedRoute,

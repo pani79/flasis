@@ -1,4 +1,6 @@
-<p>alumno-listado works!</p>
+<h2>{{infoPagina.titulo}}</h2>
+<p>{{infoPagina.info}}</p>
+
 
 <!-- Ver    = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  -->
 <div *ngIf="modo === 'VER'" class="container alumnoContenedor">
@@ -43,45 +45,50 @@
 </div>
 <hr>
    
+   
+<mat-form-field>
+    <mat-label>Filtro</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="filtrar por apellido, nombre, institución, etc..." #input>
+</mat-form-field>
     
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
     <ng-container matColumnDef="apellido">
-    <th mat-header-cell *matHeaderCellDef> Apellido </th>
-    <td mat-cell *matCellDef="let element"> {{element.apellido}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Apellido </th>
+        <td mat-cell *matCellDef="let element"> {{element.apellido}} </td>
     </ng-container>
 
     <ng-container matColumnDef="nombre">
-    <th mat-header-cell *matHeaderCellDef> Nombre </th>
-    <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+        <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
     </ng-container>
 
     <ng-container matColumnDef="sexo">
-    <th mat-header-cell *matHeaderCellDef> Sexo </th>
-    <td mat-cell *matCellDef="let element"> {{element.sexo}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Sexo </th>
+        <td mat-cell *matCellDef="let element"> {{element.sexo}} </td>
     </ng-container>
 
     <ng-container matColumnDef="institucion">
-    <th mat-header-cell *matHeaderCellDef> Institucion </th>
-    <td mat-cell *matCellDef="let element"> {{element.institucion}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Institucion </th>
+        <td mat-cell *matCellDef="let element"> {{element.institucion}} </td>
     </ng-container>
 
     <ng-container matColumnDef="curso">
-    <th mat-header-cell *matHeaderCellDef> Curso </th>
-    <td mat-cell *matCellDef="let element"> {{element.curso}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Curso </th>
+        <td mat-cell *matCellDef="let element"> {{element.curso}} </td>
     </ng-container>
     
     <ng-container matColumnDef="division">
-    <th mat-header-cell *matHeaderCellDef> Division </th>
-    <td mat-cell *matCellDef="let element"> {{element.division}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Division </th>
+        <td mat-cell *matCellDef="let element"> {{element.division}} </td>
     </ng-container>
 
     <ng-container matColumnDef="acciones">
     <th mat-header-cell *matHeaderCellDef> acciones </th>
     <td mat-cell *matCellDef="let element"> 
-        <button type="button" class="btn btn-outline-warning m-1" (click)="clickEdiar(element)">Editar</button>
-            <button type="button" class="btn btn-outline-warning m-1" (click)="clickVer(element)">Ver</button>
-            <button type="button" class="btn btn-outline-danger m-1" (click)="clickBorrar(element.id)">Borrar</button> 
+        <button type="button" class="btn btn-primary m-1" (click)="clickEdiar(element)">Editar</button>
+        <button type="button" class="btn btn-primary m-1" (click)="clickVer(element)">Ver</button>
+        <button type="button" class="btn btn-danger m-1" (click)="clickBorrar(element.id)">Borrar</button> 
     </td>
     </ng-container>
 
@@ -89,7 +96,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 <mat-paginator
-    [pageSizeOptions]="[5, 10, 20]"
+    [pageSizeOptions]="[10, 20, 50]"
     showFirstLastButtons
 >
 </mat-paginator>

@@ -32,6 +32,7 @@ export class AlumnoListadoComponent implements OnInit, AfterViewInit {
   
   displayedColumns: string[] = ['apellido', 'nombre', 'sexo', 'institucion', 'curso', 'division', 'acciones'];
   dataSource = new MatTableDataSource();
+  infoPagina =  {titulo: 'Alumnos', info: 'Listado de alumnos.'}
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -70,7 +71,13 @@ export class AlumnoListadoComponent implements OnInit, AfterViewInit {
     this.modo = 'VER';
   }
   
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
 
-
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
 
 }

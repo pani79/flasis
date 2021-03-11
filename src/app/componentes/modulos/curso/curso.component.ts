@@ -40,6 +40,7 @@ export class CursoComponent implements OnInit {
     detalle: 'Cargando metadatos en proceso.'
   }
   infoPagina =  {titulo: 'Batman', info: 'BW'}
+  debug = true // DEBUG
 
   @Input() inputInfo: {};
 
@@ -94,9 +95,18 @@ export class CursoComponent implements OnInit {
         */
     }else {
       console.log('hay inputInfo');
-      this.infoPagina =  {titulo: ('Crear un curso nuevo en la ins ' + this.inputInfo['institucion']['id']), info: 'Dale, rellena al chango.'}
-    }   
-    //if(this.inputInfo) this.cursoObtiene(); 
+      this.infoPagina =  {titulo: ('Crear un curso nuevo en la ins ' + this.inputInfo['institucion']['nombre']), info: 'Dale, rellena al chango.'}
+      this.cargaInfo.cargando = false;
+      this.modo = 'CREAR';
+      this.instituciones.push(this.inputInfo['institucion'])
+      this.formularioSetInstitucion(this.inputInfo['institucion']['nombre'], this.inputInfo['institucion']['id'], true)
+      /* 
+          this.curso.institucion_id = this.inputInfo['institucion']['id'];
+          this.curso.institucion_nombre = this.inputInfo['institucion']['nombre'];
+          this.formularioCurso.get('institucion').setValue(this.inputInfo['institucion']['id'])
+          this.formularioCurso.controls['institucion'].disable() 
+      */
+    } 
   }
   
   infoObtieneInstituciones() {
@@ -150,13 +160,22 @@ export class CursoComponent implements OnInit {
   formularioClickOpcion (elemento: string, valor: any) {
     console.log('formularioClickOpcion REVEER');
     if(elemento === 'ESTABLECIMIENTO') {
-      this.curso.institucion_id = valor['id'];
-      this.curso.institucion_nombre = valor['nombre'];
+      this.formularioSetInstitucion(valor['nombre'], valor['id'], false)
     }else if(elemento === 'TIPO_CURSO') {
       this.curso.institucion_id = valor['id'];
     }else {
       console.log('UOPS en formularioClickOpcion');
     }
+  }
+
+  
+  formularioSetInstitucion (institucionNombre: string, institucionID: string, desactiva: boolean) {
+    console.log('formularioSetInstitucion', institucionNombre, institucionID, desactiva);
+    this.curso.institucion_id = institucionID;
+    this.curso.institucion_nombre = institucionNombre;
+    this.formularioCurso.get('institucion').setValue(institucionID)
+    this.formularioCurso.controls['institucion'].disable() 
+    if(desactiva) this.formularioCurso.controls['institucion'].disable() 
   }
   
 

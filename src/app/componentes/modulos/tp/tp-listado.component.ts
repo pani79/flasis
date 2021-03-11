@@ -30,6 +30,8 @@ export class TpListadoComponent implements OnInit, AfterViewInit {
   
   displayedColumns: string[] = ['titulo', 'denominacion', 'descripcion', 'estado', 'acciones'];
   dataSource = new MatTableDataSource();
+  infoPagina =  {titulo: 'Trabajos prácticos', info: 'Listado de trabajos prácticos.'}
+  
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;

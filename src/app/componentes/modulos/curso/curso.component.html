@@ -20,7 +20,7 @@
     <!-- <p>{{curso}}</p> -->
 </div>
 
-<div class="row">
+<div class="row" *ngIf="!cargaInfo.cargando">
     <div class="col-12">
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button class="btn bg-dark btn-block text-light" (click)="clickIrAlListado()">Ir a listado</button>
@@ -96,9 +96,11 @@
     </form>
 </div>
 
-<hr>
-<p>curso > {{curso|json}}</p>
-<p>modo > {{modo}}</p>
-<!-- <p>hijo > {{hijo}}</p> -->
-<p>inputInfo > {{inputInfo|json}}</p>
-<p>instituciones > {{instituciones|json}}</p>
+<div *ngIf="debug">
+    <hr>
+    <p>curso > {{curso|json}}</p>
+    <p>modo > {{modo}}</p>
+    <!-- <p>hijo > {{hijo}}</p> -->
+    <p>inputInfo > {{inputInfo|json}}</p>
+    <p>instituciones > {{instituciones|json}}</p>
+</div>

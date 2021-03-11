@@ -47,7 +47,7 @@
                     </mat-form-field>
                 </div>
                 <div>
-                    <label id="example-radio-group-label">Sexo</label>
+                    <!-- <label id="example-radio-group-label">Sexo</label> -->
                     <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
                       formControlName="sexo">
                       <mat-radio-button class="example-radio-button" *ngFor="let sexo of sexos"
@@ -63,19 +63,20 @@
                     </mat-form-field>
                 </div> 
             </div>
+
             <div class="col-12 col-md-6 col-lg-4">
                 <div>
                     <mat-form-field class="example-form-field">
                       <mat-label>Organismo / institución</mat-label>
                       <mat-select formControlName="institucion" placeholder="Institución">
                         <mat-option *ngFor="let establecimiento of instituciones" [value]="establecimiento.id"
-                          (click)="formularioClickOpcion('ESTABLECIMIENTO', establecimiento)">
+                          (click)="formularioClickOpcion('ESTABLECIMIENTO', establecimiento.id)">
                           {{establecimiento.nombre}}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
                 </div>
-                <div>
+                <div [class.deshabilitado]="cursos.length === 0">
                     <mat-form-field class="example-form-field">
                       <mat-label>Curso</mat-label>
                       <mat-select formControlName="curso" placeholder="Curso">
@@ -123,3 +124,4 @@
     </form>
 </div>
 
+<p>{{formularioAlumno}}</p>
