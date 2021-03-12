@@ -39,11 +39,24 @@ export class AlumnoService {
         )
       
     );
-    // this.alumnos = this.alumnosColleccion.snapshotChanges().pipe(
-    //   map( actions => actions.map(
-    //     a => a.payload.doc.data() as Alumno
-    //   ))
-    // );
+    // this.alumnos = this.alumnosColleccion.snapshotChanges().pipe(    //   map( actions => actions.map(    //     a => a.payload.doc.data() as Alumno    //   ))    // );
+  }
+
+  alumnosObtenerPorInstitucion(idInstitucion: string) {
+    return this.afs.collection('alumnos', ref => {
+      let query: firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
+      query = query.where('institucion', '==', idInstitucion);
+      return query;    
+    }).snapshotChanges();
+  }
+
+  alumnosObtenerPorCurso(idCurso: string) {
+    console.log('s alumnosObtenerPorCurso > ', idCurso);    
+    return this.afs.collection('alumnos', ref => {
+      let query: firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
+      query = query.where('curso', '==', idCurso);
+      return query;    
+    }).snapshotChanges();
   }
 
   alumnoObtenerPorId(id: string) {

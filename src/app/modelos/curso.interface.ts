@@ -12,5 +12,4 @@ export interface Curso {
     nombre: string;
     nivel: string;
     division: string;
-    tipo: string;
 }

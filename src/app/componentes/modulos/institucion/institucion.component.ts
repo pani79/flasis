@@ -128,6 +128,8 @@ export class InstitucionComponent implements OnInit {
     const institucion = this.formularioInstitucion.value;
     const institucionId = this.institucion.id || null;
     /* const institucionId = this.institucion?.id || null; */
+    
+    console.log('guardar ', institucionId, JSON.stringify(institucion));
     let resultado = this.servicioInstitucion.institucionGuardar(institucion, institucionId)
     .then(
       (res) => {

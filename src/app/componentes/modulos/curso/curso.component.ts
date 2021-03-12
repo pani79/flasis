@@ -28,7 +28,7 @@ import { JsonpClientBackend } from '@angular/common/http';
 })
 export class CursoComponent implements OnInit {
 
-  curso: Curso;
+  curso: any;
   formularioCurso: FormGroup;
   modo: string;
   titulo = 'Listado de cursos';
@@ -83,7 +83,7 @@ export class CursoComponent implements OnInit {
         this.infoObtieneInstituciones()
         // curso desde institucion nueva
         this.infoPagina =  {titulo: ('Crear un curso nuevo en la ins NUEVA'), info: 'Dale, rellena al chango.'}
-        console.log('UOPPPS <= '); 
+        console.log('CREO NUEVO CURSO <= '); 
       }
         
         /* 
@@ -158,11 +158,11 @@ export class CursoComponent implements OnInit {
   clickIrAlListado() {    this.servicioFasis.navegarA('cursos'); }
   
   formularioClickOpcion (elemento: string, valor: any) {
-    console.log('formularioClickOpcion REVEER');
+    console.log('formularioClickOpcion ', elemento, valor);
     if(elemento === 'ESTABLECIMIENTO') {
       this.formularioSetInstitucion(valor['nombre'], valor['id'], false)
     }else if(elemento === 'TIPO_CURSO') {
-      this.curso.institucion_id = valor['id'];
+      this.curso.tipo_curso = valor;
     }else {
       console.log('UOPS en formularioClickOpcion');
     }
@@ -174,8 +174,7 @@ export class CursoComponent implements OnInit {
     this.curso.institucion_id = institucionID;
     this.curso.institucion_nombre = institucionNombre;
     this.formularioCurso.get('institucion').setValue(institucionID)
-    this.formularioCurso.controls['institucion'].disable() 
-    if(desactiva) this.formularioCurso.controls['institucion'].disable() 
+    if(desactiva === true) this.formularioCurso.controls['institucion'].disable()    
   }
   
 
@@ -191,7 +190,7 @@ export class CursoComponent implements OnInit {
     });
     if (typeof this.curso === 'undefined') {
       // this.router.navigate(['new']);
-      this.curso = { id: null, nombre: null, institucion_id: null, institucion_nombre: null, tipo_curso: null, nivel: null, division: null, tipo: null }
+      this.curso = { nombre: null, institucion_id: null, institucion_nombre: null, tipo_curso: null, nivel: null, division: null }
     } else {
       console.log('relleno');
       this.formularioCurso.patchValue(this.curso);
@@ -207,10 +206,12 @@ export class CursoComponent implements OnInit {
     this.curso.division = this.formularioCurso.get('division').value;
     const curso = this.curso;
     const cursoId = this.curso.id || null;
-    this.servicioCurso.cursoGuardar(curso, cursoId)
+    console.log('guardar ', cursoId, JSON.stringify(curso));
+    let resultado =this.servicioCurso.cursoGuardar(curso, cursoId)
       .then(
         (res) => {
           console.log(res)
+          curso.id = res
         }
       );
   }

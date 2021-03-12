@@ -8,6 +8,8 @@
     border-radius: 4px;
     background-color: white;
 }
+.deshabilitado{ opacity: .2; }
+
 
 table{ width: 100%;}
 table td{ height: 20px;}

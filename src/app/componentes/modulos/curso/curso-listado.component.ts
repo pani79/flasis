@@ -28,7 +28,7 @@ export class CursoListadoComponent implements OnInit, AfterViewInit {
   modo= 'LISTAR';
   titulo = 'Listado de cursos';
   
-  displayedColumns: string[] = ['institucion', 'nombre', 'nivel', 'division', 'tipo', 'acciones'];
+  displayedColumns: string[] = ['id', 'institucion', 'nombre', 'nivel', 'division', 'tipo', 'acciones'];
   dataSource = new MatTableDataSource();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;

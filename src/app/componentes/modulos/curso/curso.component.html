@@ -53,7 +53,7 @@
                     <mat-form-field class="example-form-field">
                       <mat-label>Tipo de curso</mat-label>
                       <mat-select formControlName="tipo_curso" placeholder="Tipo">
-                        <mat-option *ngFor="let tipoCurso of tipoCursos" [value]="tipoCurso.id"><!-- (click)="formularioClickOpcion('TIPO_CURSO', establecimiento)" -->
+                        <mat-option *ngFor="let tipoCurso of tipoCursos" [value]="tipoCurso.id" (click)="formularioClickOpcion('TIPO_CURSO', tipoCurso.id)"><!-- -->
                                 {{tipoCurso.nombre}}
                         </mat-option>
                       </mat-select>

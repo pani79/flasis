@@ -133,16 +133,16 @@ export class CursoService {
 
   
 
-  cursoGuardar(Curso: Curso, InstitucionId: string): Promise<any> {
-    console.log('InstitucionGuardar => ' + JSON.stringify(Curso));
-    console.log('InstitucionId => ' + InstitucionId);
+  cursoGuardar(curso: Curso, cursoId: string): Promise<any> {
+    console.log('InstitucionGuardar => ' + JSON.stringify(curso));
+    console.log('cursoId => ' + cursoId);
     return new Promise( async (resolve, rejecct) => {
       try {
-        const id = InstitucionId || this.afs.createId();
-        const info = {id, ...Curso};
-        console.log('guardado como > ' + id);
+        const id = cursoId || this.afs.createId();
+        const info = {id, ...curso};
+        console.log('por guardar como > ' + id);
         const resultado = await this.cursosColleccion.doc(id).set(info);
-        console.log(resultado);
+        console.log('guardado como > ' + id);
         
         resolve(id);
       } catch (error) {

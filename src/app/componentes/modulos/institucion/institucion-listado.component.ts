@@ -26,7 +26,7 @@ export class InstitucionListadoComponent implements OnInit {
   modo= 'LISTAR';
   titulo = 'Listado de institucions';
   
-  displayedColumns: string[] = ['nombre', 'descripcion', 'nivel', 'acciones'];
+  displayedColumns: string[] = ['id', 'nombre', 'descripcion', 'nivel', 'acciones'];
   dataSource = new MatTableDataSource();
   infoPagina =  {titulo: 'Instituciones', info: 'Listado de instituciones.'}
 

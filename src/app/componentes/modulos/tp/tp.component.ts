@@ -37,8 +37,7 @@ export class TpComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private location: Location
-    ) { 
-    }
+    ) {}
 
   ngOnInit() { 
     this.cargaInfo.titulo = 'Preparando';
