@@ -43,6 +43,7 @@ ng g c componentes/modulos/institucion --module app --skipTests
 ng g c componentes/modulos/institucion/institucionListado --flat --skipTests
 ng g c componentes/modulos/tp --module app --skipTests
 ng g c componentes/modulos/tp/tpListado --flat --skipTests
+ng g c componentes/modulos/tpAsignacion --module app --skipTests
 ng g c componentes/paginas/generales/home
 ng g c componentes/paginas/generales/paginanoencontrada
 
@@ -51,12 +52,14 @@ ng g m componentes/modulos/alumno --module app
 ng g m componentes/modulos/curso --module app
 ng g m componentes/modulos/institucion --module app
 ng g m componentes/modulos/tp --module app
+ng g m componentes/modulos/tpAsignacion --module app
 ng g m modulos/material
 
 ng g s componentes/modulos/alumno
 ng g s componentes/modulos/curso
 ng g s componentes/modulos/institucion
 ng g s componentes/modulos/tp
+ng g s componentes/modulos/tpAsignacion
 ng g s flasis
 
 
