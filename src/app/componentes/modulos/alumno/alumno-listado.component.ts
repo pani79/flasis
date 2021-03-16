@@ -33,8 +33,7 @@ export class AlumnoListadoComponent implements OnInit, AfterViewInit {
   //alumnos: Alumno[] = [];
   alumno: Alumno
   //alumnos$: any;
-  modo= 'LISTAR'
-  titulo = 'Listado de alumnos'
+  modo= 'LISTAR'  // reveer
   instituciones: Institucion[] = []
   cursos: Curso[] = []
   formularioAlumnoBusqueda: FormGroup
@@ -133,6 +132,7 @@ export class AlumnoListadoComponent implements OnInit, AfterViewInit {
       }
     );
   }
+  
 
   clickBorrar(alumnoId: string) {    this.servicioAlumno.alumnoEliminar(alumnoId);  }
   clickCrear() {    this.servicioFasis.navegarA('alumno/'); }

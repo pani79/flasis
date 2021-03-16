@@ -12,6 +12,7 @@ import { InstitucionComponent } from './componentes/modulos/institucion/instituc
 import { InstitucionListadoComponent } from './componentes/modulos/institucion/institucion-listado.component';
 import { TpComponent } from './componentes/modulos/tp/tp.component';
 import { TpListadoComponent } from './componentes/modulos/tp/tp-listado.component';
+import { TpAsignacionComponent } from './componentes/modulos/tp-asignacion/tp-asignacion.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'instituciones', component: InstitucionListadoComponent },
   { path: 'trabajopractico/:id', component: TpComponent },
   { path: 'trabajospracticos', component: TpListadoComponent },
+  { path: 'trabajospracticos/asignacion', component: TpAsignacionComponent },
   { path: '**', component: PaginanoencontradaComponent }
 ];
 

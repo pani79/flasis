@@ -1,0 +1,5 @@
+.alumno, .tp{ display: flex; flex-direction: row; margin-bottom: 2px; }
+.alumno > div:first-child, .tp > div:first-child{ flex-grow: 2; flex-direction: column; padding: 8px; }
+.alumno > div:last-child, .tp > div:last-child{ width: 40px; flex-grow: 0; border-radius: 0px 4px 4px 0px; background-color: lightpink; }
+
+.alumno p, .tp p{ margin: 0px; padding: 0px;}

@@ -1,0 +1,102 @@
+<h2>{{infoPagina.titulo}}</h2>
+<p>{{infoPagina.info}}</p>
+
+
+<div class="row">
+    <div class="col-12 col-md-9 card">
+        
+        <form class="formulario" [formGroup]="formularioAlumnoBusqueda">
+            
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="example-form-field">
+                        <mat-label>Organismo / institución</mat-label>
+                        <mat-select formControlName="institucion" placeholder="Institución">
+                        <mat-option *ngFor="let establecimiento of instituciones" [value]="establecimiento.id"
+                            (click)="formularioClickOpcion('ESTABLECIMIENTO', establecimiento.id)">
+                            {{establecimiento.nombre}}
+                        </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col" [class.deshabilitado]="cursos.length === 0">
+                    <mat-form-field class="example-form-field">
+                        <mat-label>Curso</mat-label>
+                        <mat-select formControlName="curso" placeholder="Curso">
+                        <mat-option *ngFor="let curso of cursos" [value]="curso.id"
+                            (click)="formularioClickOpcion('CURSO', curso.id)">
+                            {{curso.nombre}}
+                        </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <!-- 
+                    <div class="col">
+                        <button (click)="modificar()" class="btn bg-dark btn-block mt-1 text-light">Modificar</button>
+                    </div> 
+                -->
+                
+            </div>
+            
+        </form>
+    </div>
+    <div class="col-12 col-md-3">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end align-items-center">
+            <button class="btn btn-primary m-1" (click)="clickCrear()">Nuevo alumno</button>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="alumnos.length > 0">
+    
+    <div class="col-6">
+        <div class="card alumno" *ngFor="let alumno of alumnos">
+            <div>
+                <p>{{alumno.apellido}} {{alumno.nombre}}</p>
+            </div>
+            <div>
+                <button mat-icon-button (click)="alumnoAsigna(alumno.id)" aria-label="Example icon button with a open in new tab icon">
+                    <mat-icon>open_in_new</mat-icon>
+                </button>
+            </div>
+
+        </div>
+        <p>{{alumnos|json}}</p>
+    </div>
+    
+    <div class="col-6">
+        <div class="card tp" *ngFor="let tp of tps">
+            <div>
+                <p>{{tp.denominacion}} </p>
+                <p>{{tp.descripcion}}</p>
+            </div>
+            <div>
+                <section class="example-section">
+                    <mat-checkbox class="example-margin" (click)="tpCheck(value)"></mat-checkbox>
+                </section>
+            </div>
+
+        </div>
+        <p>{{tps|json}}</p>
+    </div>
+    
+</div>
+
+<div>
+    <p>{{alumnos|json}}</p>
+</div>
+<div>
+    <p>{{tpAs|json}}</p>
+</div>
+<app-cuadroaviso [info]="infoTpas"></app-cuadroaviso>
+<!-- 
+<HeaderComponent></HeaderComponent>
+ -->
+ <!-- -->
+
+<div class="card tp" *ngFor="let tpa of tpAs">
+    <div>
+        <p>{{tpa|json}}</p>
+    </div>
+    <div></div>
+</div>

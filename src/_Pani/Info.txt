@@ -34,6 +34,7 @@ height: calc(100% - 20px);
 
 
 
+ng g c componentes/elementos/cuadroaviso
 ng g c componentes/interface/pagina/header
 ng g c componentes/modulos/alumno --module app --skipTests
 ng g c componentes/modulos/alumno/alumnoListado --flat --skipTests
@@ -53,6 +54,7 @@ ng g m componentes/modulos/curso --module app
 ng g m componentes/modulos/institucion --module app
 ng g m componentes/modulos/tp --module app
 ng g m componentes/modulos/tpAsignacion --module app
+ng g m modulos/compartidos --module app
 ng g m modulos/material
 
 ng g s componentes/modulos/alumno
