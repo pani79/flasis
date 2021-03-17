@@ -20,8 +20,8 @@ import { CursoModule } from 'src/app/componentes/modulos/curso/curso.module';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    MaterialModule,
-    CursoModule
+    CursoModule,
+    MaterialModule
   ],
   exports: [InstitucionComponent]
 })

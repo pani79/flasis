@@ -8,5 +8,15 @@
 .contenedor > .info{
     position: relative;
     display: flex;
+    flex-direction: column;
     align-self: center;
 }
+
+.contenedor > .info > *{ text-align: center; margin: 0px !important; padding: 0px !important; }
+.contenedor .mat-icon{    align-self: center; font-size: 36px; height: 36px; width: 36px; }
+
+
+/* 
+Debug
+.contenedor > .info{ border: cadetblue 1px dotted;}
+*/

@@ -39,7 +39,7 @@ export class TpAsignacionComponent implements OnInit {
   tpAs: TpAsignacion[] = []
   formularioAlumnoBusqueda: FormGroup
   infoPagina =  {titulo: 'Asignaciones', info: 'Listado de asignaciones aalumnos.'}
-  infoTpas =  { icono: 'assignment', titulo: 'Asignaciones', info: 'todavia no hay'}
+  infoTpas =  { icono: 'search_off', titulo: 'Asignaciones', info: 'todavia no hay'}
 
   constructor(
     private servicioFasis:FlasisService,

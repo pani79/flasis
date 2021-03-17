@@ -2,3 +2,17 @@
 <p>vivo para usted!</p>
 
 <p>Sisi, este es el home</p>
+
+<div class="container">
+    <div class="row justify-content-center menu">
+        <div *ngFor="let item of menu" class="col-12 col-sm-4 col-lg-2">
+            <div class="card" (click)="irA(item.link)">
+                <div class="contenedor">
+                    <mat-icon>{{item.icono}}</mat-icon>
+                    <!-- <span class="{{item.icono}}"></span> -->
+                    <h5>{{item.titulo}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

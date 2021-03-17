@@ -19,8 +19,8 @@ import { CompartidosModule } from 'src/app/modulos/compartidos/compartidos.modul
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    MaterialModule,
-    CompartidosModule
+    CompartidosModule,
+    MaterialModule
   ], 
   exports: [TpAsignacionComponent]
 })
