@@ -2,13 +2,13 @@
 <p>{{infoPagina.info}}</p>
 
 
-<div class="row">
+<div class="row buscador">
     <div class="col-12 col-md-9 card">
         
         <form class="formulario" [formGroup]="formularioAlumnoBusqueda">
             
             <div class="row">
-                <div class="col">
+                <div class="col-12 col-sm-4">
                     <mat-form-field class="example-form-field">
                         <mat-label>Organismo / institución</mat-label>
                         <mat-select formControlName="institucion" placeholder="Institución">
@@ -19,7 +19,7 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="col" [class.deshabilitado]="cursos.length === 0">
+                <div class="col-12 col-sm-2" [class.deshabilitado]="cursos.length === 0">
                     <mat-form-field class="example-form-field">
                         <mat-label>Curso</mat-label>
                         <mat-select formControlName="curso" placeholder="Curso">
@@ -40,12 +40,23 @@
             
         </form>
     </div>
-    <div class="col-12 col-md-3">
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end align-items-center">
-            <button class="btn btn-primary m-1" (click)="clickCrear()">Nuevo alumno</button>
+    <!-- 
+        <div class="col-12 col-md-3">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end align-items-center">
+                <button class="btn btn-primary m-1" (click)="clickCrear()">Nuevo alumno</button>
+            </div>
         </div>
-    </div>
+     -->
 </div>
+
+<hr>
+
+
+
+
+
+
+
 
 <div class="row" *ngIf="alumnos.length > 0">
     
@@ -61,7 +72,7 @@
             </div>
 
         </div>
-        <p>{{alumnos|json}}</p>
+        <!-- <p>{{alumnos|json}}</p> -->
     </div>
     
     <div class="col-6">
@@ -77,23 +88,35 @@
             </div>
 
         </div>
-        <p>{{tps|json}}</p>
+        <!-- <p>{{tps|json}}</p> -->
     </div>
     
+    <hr>
 </div>
+
+
+
+
+
+
+
+
 <app-cuadroaviso [info]="infoTpas" *ngIf="tpAs.length < 1"></app-cuadroaviso>
 <!-- 
     <HeaderComponent></HeaderComponent>
  -->
  <!-- -->
-
- <div class="card tp" *ngFor="let tpa of tpAs">
+<div *ngIf="tpAs.length > 0" class="tpasignados">
+     <app-tpaeditar [inputTpas]="tpa" *ngFor="let tpa of tpAs"></app-tpaeditar>
+</div>
+<!-- 
+<div class="card tp" *ngFor="let tpa of tpAs" >
     <div>
         <p>{{tpa|json}}</p>
     </div>
     <div></div>
 </div>
-
+ -->
 
 <div>
     <p>{{alumnos|json}}</p>

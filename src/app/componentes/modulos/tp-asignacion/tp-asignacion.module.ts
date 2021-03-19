@@ -11,11 +11,12 @@ import { MaterialModule } from "src/app/modulos/material/material.module";
 
 import { TpAsignacionComponent } from "./tp-asignacion.component";
 import { CompartidosModule } from 'src/app/modulos/compartidos/compartidos.module';
+import { TpaeditarComponent } from './tpaeditar/tpaeditar.component';
 //import { CuadroavisoComponent } from '../../elementos/cuadroaviso/cuadroaviso.component';
 
 
 @NgModule({
-  declarations: [TpAsignacionComponent],
+  declarations: [TpAsignacionComponent, TpaeditarComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

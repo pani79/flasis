@@ -45,6 +45,7 @@ ng g c componentes/modulos/institucion/institucionListado --flat --skipTests
 ng g c componentes/modulos/tp --module app --skipTests
 ng g c componentes/modulos/tp/tpListado --flat --skipTests
 ng g c componentes/modulos/tpAsignacion --module app --skipTests
+ng g c componentes/modulos/tp-asignacion/tpaeditar --skipTests
 ng g c componentes/paginas/generales/home
 ng g c componentes/paginas/generales/paginanoencontrada
 

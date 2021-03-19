@@ -1,0 +1,9 @@
+.card{ position: relative; width: 100%; margin-bottom: 4px !important; }
+
+.tpa{ display: flex; flex-direction: row;}
+.tpa p{ padding: 0px; margin: 0px;}
+.tpa > div{ padding: 10px;}
+.tpa > div:first-child{ flex-grow: 2; }
+.tpa > div:last-child{ width: 80px; flex-grow: 0; border-radius: 0px 4px 4px 0px; background-color: blueviolet; cursor: pointer; }
+
+.formulario{ display: flex; flex-direction: row; }

@@ -1,0 +1,69 @@
+
+<div class="card tpa">
+
+    <div class="info">
+        <p>{{modoEditar}}</p>
+        <div *ngIf="!modoEditar"  class="ver">
+            <p>{{inputTpas|json}}</p>
+        </div>
+    
+        <div *ngIf="modoEditar" class="editar"><!-- -->
+            <form class="formulario row" [formGroup]="formularioTPA" *ngIf="formularioTPA"><!--   -->
+                <div class="col-12 col-sm-3">
+                    <mat-form-field class="example-form-field">
+                        <mat-label>Calificacion del alumno</mat-label>
+                        <input matInput type="text" formControlName="calificacion" placeholder="calificacion">
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-sm-3">
+                    <mat-form-field class="example-form-field">
+                        <mat-label>Nota del alumno</mat-label>
+                        <input matInput type="text" formControlName="nota" placeholder="nota">
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-sm-3">
+                    <mat-form-field class="example-form-field">
+                        <mat-label>Estado del tp</mat-label>
+                        <input matInput type="text" formControlName="estado" placeholder="estado">
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-sm-3">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Comentarios</mat-label>
+                        <textarea matInput formControlName="comentarios" placeholder="Comentarios">1600 Amphitheatre Pkwy</textarea>
+                    </mat-form-field>
+                </div>
+                <!-- 
+                    
+                    <div class="col-12 col-sm-4">
+                        <mat-form-field class="example-form-field">
+                            <mat-label>Organismo / institución</mat-label>
+                            <mat-select formControlName="institucion" placeholder="Institución">
+                            <mat-option *ngFor="let establecimiento of instituciones" [value]="establecimiento.id"
+                                (click)="formularioClickOpcion('ESTABLECIMIENTO', establecimiento.id)">
+                                {{establecimiento.nombre}}
+                            </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-12 col-sm-2" [class.deshabilitado]="cursos.length === 0">
+                        <mat-form-field class="example-form-field">
+                            <mat-label>Curso</mat-label>
+                            <mat-select formControlName="curso" placeholder="Curso">
+                            <mat-option *ngFor="let curso of cursos" [value]="curso.id"
+                                (click)="formularioClickOpcion('CURSO', curso.id)">
+                                {{curso.nombre}}
+                            </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                -->
+            </form>
+             
+        </div>
+    </div>
+
+    <div class="switch" (click)="estadoCambia()">
+        <mat-icon>assignment_return</mat-icon>
+    </div>
+</div>
