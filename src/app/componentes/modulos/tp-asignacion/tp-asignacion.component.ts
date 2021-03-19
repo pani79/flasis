@@ -127,7 +127,7 @@ export class TpAsignacionComponent implements OnInit {
 
   //  Formularios    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-  tpCheck(valor: any) { console.log(valor);  }
+  tpCheck(valor?: any) { console.log(valor);  }
   
   alumnoAsigna(idAlumno: any) { 
     console.log('valor => ', idAlumno);

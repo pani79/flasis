@@ -1,11 +1,13 @@
 
 <div class="contenedor card">
     <div class="info">
-        <mat-icon>{{info.icono}}</mat-icon><!-- -->
-        <h6>{{info.titulo}}</h6>
-        <p>{{info.info}}</p>
+        <mat-icon>{{info['icono']}}</mat-icon><!-- -->
+        <h6>{{info['titulo']}}</h6>
+        <p>{{info[info]}}</p>
     </div>
 </div>
-<p>{{info|json}}</p>
 
-<!-- icono: 'assignment', titulo: 'Asignaciones', info: 'todavia no hay' -->
+<!-- 
+    <p>{{info|json}}</p>
+    icono: 'assignment', titulo: 'Asignaciones', info: 'todavia no hay' 
+-->

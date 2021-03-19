@@ -9,7 +9,10 @@
 .alumno p, .tp p{ margin: 0px; padding: 0px;}
 
 
+/* 
+Debug
 .buscador form > div > div{ border: dashed 2px red; }
 .buscador form > div > div > *{ border: dotted 1px blueviolet; }
 
-/* .tpasignados > *{ margin-bottom: 4px !important;} */
+.tpasignados > *{ margin-bottom: 4px !important;} 
+*/
